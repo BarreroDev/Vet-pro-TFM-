@@ -1,0 +1,24 @@
+# Archivos de configuración de IDEs a nivel global
+.idea/
+.vscode/
+*.iml
+.settings/
+.classpath
+.project
+.metadata/
+
+# Ignorar binarios y temporales globales
+*.jar
+*.war
+*.png
+
+# Archivos del sistema operativo
+.DS_Store
+Thumbs.db
+
+# Exclusiones específicas de las subcarpetas
+back/target/
+back/build/
+front/node_modules/
+front/dist/
+front/.angular/
