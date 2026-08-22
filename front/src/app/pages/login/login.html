@@ -1,0 +1,39 @@
+
+<div class="login-container">
+  <div class="login-card">
+    <div class="login-header">
+      <img src="/assets/img/logo-img.png" alt="logo">
+      <h2>
+        Acceso Veterinario
+      </h2>
+    </div>
+    <form class="login-form">
+      <div class="form-group">
+        <label for="email">
+          Correo electrónico:
+        </label>
+        <input
+          type="email"
+          id="email"
+          placeholder="ejemplo@veterinaria.com"
+        >
+      </div>
+      <div class="form-group">
+        <label for="password">
+          Contaseña:
+        </label>
+        <input
+          type="password"
+          id="password"
+          placeholder="********"
+        >
+      </div>
+      <button type="button" class="btn-login" [routerLink] = "['/citas']">
+        Iniciar sesión
+      </button>
+
+    </form>
+  </div>
+</div>
+
+

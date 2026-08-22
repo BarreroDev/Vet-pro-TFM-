@@ -1,0 +1,54 @@
+<app-top-bar></app-top-bar>
+<app-left-bar></app-left-bar>
+
+<div class="btn-continer">
+  <button type="button" (click)="openRegistrer()" )>
+    + Nuevo dueño
+  </button>
+
+  @if (isRegistrerOpen){
+    <app-new-owner (close)="closeRegistrer()" (guardarDueño)="agregarNuevoDueno($event)"></app-new-owner>
+  }
+</div>
+<div class="general-continer">
+  <div class="table-container">
+    <table class="vampire-table">
+      <thead>
+      <tr>
+        <th>Dni</th>
+        <th>Nombre</th>
+        <th>Apellidos</th>
+        <th>Teléfono</th>
+        <th>Email</th>
+        <th>Fecha nacimiento</th>
+        <th>Acciones</th>
+      </tr>
+      </thead>
+
+      <tbody>
+        @for (dueno of listaDuenos; track dueno.dni){
+          <tr>
+            <td>{{ dueno.dni }}</td>
+            <td>{{ dueno.name }}</td>
+            <td>{{ dueno.apellidos }}</td>
+            <td>{{ dueno.telefono }}</td>
+            <td>{{ dueno.email }}</td>
+            <td>{{ dueno.fechaNacimeniento }}</td>
+            <td>
+              <button type="button" class="btn-delete" (click)="eliminarDueno(dueno.dni)">
+                Eliminar
+              </button>
+            </td>
+          </tr>
+        } @empty {
+          <tr>
+            <td colspan="6" style="text-align: center; padding: 20px">
+              No hay dueños registrados en el sistema.
+            </td>
+          </tr>
+        }
+      </tbody>
+    </table>
+  </div>
+</div>
+

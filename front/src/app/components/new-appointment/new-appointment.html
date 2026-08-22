@@ -1,0 +1,61 @@
+
+<div class="backdrop">
+  <div class="card-singup">
+    <div class="singup-header">
+      <h2>Nueva cita</h2>
+    </div>
+    <form class="singup-form">
+
+      <div class="group-singup">
+        <label for="name">
+          Dueño:
+        </label>
+        <input type="text" name="name" [(ngModel)]="name" placeholder="Paco">
+      </div>
+
+      <div class="group-singup">
+        <label for="dni">
+          DNI del dueño:
+        </label>
+        <input type="text" name="dni" [(ngModel)]="dni" placeholder="13456785-E">
+      </div>
+
+      <div class="group-singup">
+        <label for="mascota">
+          Mascota:
+        </label>
+        <input type="text" name="mascota" [(ngModel)]="mascota" placeholder="Alma">
+      </div>
+
+      <div class="group-singup">
+        <label for="motivo">
+          Motivo:
+        </label>
+        <input type="text" name="motivo" [(ngModel)]="motivo" placeholder="Vacuna, cura, ...">
+      </div>
+
+      <div class="group-singup">
+        <label for="fecha">
+          Fecha:
+        </label>
+        <input type="date" name="fecha" [(ngModel)]="fecha">
+      </div>
+
+      <div class="group-singup">
+        <label for="hora">
+          Hora:
+        </label>
+        <input type="time" name="hora" [(ngModel)]="hora" >
+      </div>
+
+      <button type="button" class="btn-singup" (click)="onGuardar()">
+        Guardar
+      </button>
+
+      <button type="button" class="btn-singup" (click)="onClose()"  >
+        Cancelar
+      </button>
+    </form>
+
+  </div>
+</div>

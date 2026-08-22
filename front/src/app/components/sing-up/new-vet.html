@@ -1,0 +1,52 @@
+<div class="backdrop">
+  <div class="card-singup">
+    <div class="singup-header">
+       <h2>Nuevo veterinario</h2>
+    </div>
+    <form class="singup-form">
+      <div class="group-singup">
+        <label for="email">
+          Correo electrónico:
+        </label>
+        <input type="email" id="email" placeholder="ejemplo@veterinaria.com">
+      </div>
+      <div class="group-singup">
+        <label for="contrasena">
+          Nueva contraseña:
+        </label>
+        <input type="password" id="contasena" placeholder="**********">
+      </div>
+      <div class="group-singup">
+        <label for="nombre">
+          Nombre:
+        </label>
+        <input type="text" id="nombre" placeholder="Roberto">
+      </div>
+      <div class="group-singup">
+        <label for="apellidos">
+          Apellidos:
+        </label>
+        <input type="text" id="apellidos" placeholder="Barrero de la Rosa">
+      </div>
+      <div class="group-singup">
+        <label for="telefono">
+          Teléfono:
+        </label>
+        <input type="text" id="telefono" placeholder="700413234">
+      </div>
+      <div class="group-singup">
+        <label for="numeroColegiado">
+          Numero Colegiado:
+        </label>
+        <input type="text" id="numeroColegiado" placeholder="444444">
+      </div>
+      <button type="submit" class="btn-singup">
+        Guardar
+      </button>
+      <button type="submit" class="btn-singup" (click)="onClose()" )>
+        Cancelar
+      </button>
+    </form>
+
+  </div>
+</div>

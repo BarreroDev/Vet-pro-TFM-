@@ -1,0 +1,50 @@
+
+.left-bar {
+  position: fixed;
+  top: 100px;
+  left: 0;
+  bottom: 0;
+  width: 140px;
+  height: calc(100vh - 100px);
+  background-color: #5dc7b9;
+  padding: 20px 8px;
+  box-shadow: #515c6c 2px 3px 3px;
+  z-index: 10;
+  box-sizing: border-box;
+  overflow-y: auto;
+}
+
+
+.left-bar::-webkit-scrollbar {
+  display: none;
+}
+
+.nav-btn {
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+}
+
+.nav-btn button {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  border-radius: 8px;
+  width: 150px;
+  min-height: 80px;
+  background: white;
+  box-shadow: #515c6c 2px 2px 2px;
+  cursor: pointer;
+  transition: all 0.2s ease;
+}
+
+.nav-btn button:hover {
+  background: #515c6c;
+  color: white;
+}
+
+.nav-btn button.active {
+  background-color: #515c6c;
+  color: white;
+}

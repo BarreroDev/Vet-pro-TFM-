@@ -1,0 +1,15 @@
+<app-top-bar></app-top-bar>
+<app-left-bar></app-left-bar>
+<div class="btn-continer">
+  <button type="button" (click)="openRegistrer()" )>
+   + Nueva cita
+  </button>
+
+  @if (isRegistrerOpen){
+    <app-new-appointment (close)="closeRegistrer()" (guardarCita)="agregarNuevaCita($event)"></app-new-appointment>
+  }
+
+</div>
+<div class="calendar-placeholder">
+  <full-calendar [options]="calendarOptions" ></full-calendar>
+</div>

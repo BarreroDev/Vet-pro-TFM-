@@ -1,0 +1,59 @@
+
+
+<div class="backdrop">
+  <div class="card-singup">
+    <div class="singup-header">
+      <h2>Nueva mascota</h2>
+    </div>
+    <form class="singup-form">
+
+      <div class="group-singup">
+        <label for="Nombre">
+          Nombre:
+        </label>
+        <input type="text" name="nombre" [(ngModel)]="nombre" placeholder="Alma">
+      </div>
+
+      <div class="group-singup">
+        <label for="especie">Selecciona una especie:</label>
+        <select name="especie" [(ngModel)]="especie">
+          <option value="" disabled selected>Elige una opción...</option>
+          <option value="perro">Perro</option>
+          <option value="gato">Gato</option>
+          <option value="roedor">Roedor</option>
+          <option value="pajaro">Pájaro</option>
+        </select>
+      </div>
+
+      <div class="group-singup">
+        <label for="raza">
+          Raza:
+        </label>
+        <input type="text" name="raza" [(ngModel)]="raza" placeholder="Labrador">
+      </div>
+
+      <div class="group-singup">
+        <label for="edad">
+          Edad:
+        </label>
+        <input type="text" name="edad" [(ngModel)]="edad" placeholder="12 Años">
+      </div>
+
+      <div class="group-singup">
+        <label for="peso">
+          Peso:
+        </label>
+        <input type="text" name="peso" [(ngModel)]="peso" >
+      </div>
+
+      <button type="button" class="btn-singup" (click)="onGuardar()">
+        Guardar
+      </button>
+
+      <button type="button" class="btn-singup" (close)="onClose()"  >
+        Cancelar
+      </button>
+    </form>
+
+  </div>
+</div>

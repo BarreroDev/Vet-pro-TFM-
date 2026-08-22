@@ -1,0 +1,62 @@
+
+
+.btn-continer{
+  margin-left: 160px;
+  margin-top: 120px;
+  margin-bottom: 20px;
+  padding: 17px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.btn-continer button{
+  background-color: #515c6c;
+  color: white;
+  box-shadow: 2px 2px 2px #515c6c;
+  width: 500px;
+  height: 35px;
+  padding: 10px 18px;
+  border-radius: 8px;
+  font-weight: bold;
+  font-size: 0.95rem;
+  cursor: pointer;
+  transition: background-color 0.2s;
+  margin-left: 100px;
+}
+
+.btn-continer button:hover{
+  background-color: white;
+  color: black;
+  border: black solid 1px;
+}
+
+.calendar-placeholder{
+  margin-left: 160px;
+  margin-right: 20px;
+  margin-bottom: 20px;
+
+}
+
+full-calendar{
+  height: 100%;
+  display:block;
+}
+
+.calendar-placeholder .fc td,
+.calendar-placeholder .fc th {
+  border: 1px solid #e5e7eb !important;
+}
+
+.calendar-placeholder .fc-timegrid-slot {
+  height: 40px ;
+  border-bottom: 1px solid #f3f4f6 ;
+}
+
+.calendar-placeholder .fc-timegrid-slot-label {
+  font-weight: 600;
+  color: #374151;
+  vertical-align: middle;
+}
+
+

@@ -1,0 +1,62 @@
+
+
+<div class="backdrop">
+  <div class="card-singup">
+    <div class="singup-header">
+      <h2>Nuevo Dueño</h2>
+    </div>
+    <form class="singup-form">
+
+      <div class="group-singup">
+        <label for="dni">
+          DNI del dueño:
+        </label>
+        <input type="text" name="dni" [(ngModel)]="dni" placeholder="13456785-E">
+      </div>
+
+      <div class="group-singup">
+        <label for="name">
+          Nombre:
+        </label>
+        <input type="text" name="name" [(ngModel)]="name" placeholder="Paco">
+      </div>
+
+      <div class="group-singup">
+        <label for="apellidos">
+          Apellidos:
+        </label>
+        <input type="text" name="apellidos" [(ngModel)]="apellidos" placeholder="Sanchez Pérez">
+      </div>
+
+      <div class="group-singup">
+        <label for="telefono">
+          Teléfono:
+        </label>
+        <input type="text" name="telefono" [(ngModel)]="telefono" placeholder="633421443">
+      </div>
+
+      <div class="group-singup">
+        <label for="email">
+          Email:
+        </label>
+        <input type="email" name="email" [(ngModel)]="email" placeholder="dueño@gmail.com">
+      </div>
+
+      <div class="group-singup">
+        <label for="fechaNacimeniento">
+          Fecha nacimiento:
+        </label>
+        <input type="date" name="fechaNacimeniento" [(ngModel)]="fechaNacimeniento" >
+      </div>
+
+      <button type="button" class="btn-singup" (click)="onGuardar()">
+        Guardar
+      </button>
+
+      <button type="button" class="btn-singup" (click)="onClose()"  >
+        Cancelar
+      </button>
+    </form>
+
+  </div>
+</div>

@@ -1,0 +1,47 @@
+<app-top-bar></app-top-bar>
+<app-left-bar></app-left-bar>
+
+<div class="general-continer">
+  <div class="table-container">
+    <table class="vampire-table">
+      <thead>
+      <tr>
+        <th>ID</th>
+        <th>Numero colegiado</th>
+        <th>Nombre</th>
+        <th>Apellidos</th>
+        <th>Teléfono</th>
+        <th>Email</th>
+        <th>Acciones</th>
+      </tr>
+      </thead>
+
+      <tbody>
+        @for (veterinario of listaVeterinario; track veterinario.id){
+          <tr>
+            <td>{{ veterinario.id }}</td>
+            <td>{{ veterinario.numeroColegiado }}</td>
+            <td>{{ veterinario.nombre }}</td>
+            <td>{{ veterinario.apellidos }}</td>
+            <td>{{ veterinario.telefono }}</td>
+            <td>{{ veterinario.email }}</td>
+            <td>
+              <button type="button" class="btn-delete" (click)="eliminarVeterinario(veterinario.id)">
+              Eliminar
+              </button>
+            </td>
+
+          </tr>
+        } @empty {
+          <tr>
+            <td colspan="6" style="text-align: center; padding: 20px">
+              No hay veterinarios registrados en el sistema.
+            </td>
+          </tr>
+        }
+      </tbody>
+    </table>
+  </div>
+</div>
+
+

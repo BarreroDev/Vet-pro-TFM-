@@ -1,0 +1,105 @@
+.btn-continer{
+  margin-top: 120px;
+  margin-bottom: 20px;
+  padding: 17px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.btn-continer button{
+  background-color: #515c6c;
+  color: white;
+  box-shadow: 2px 2px 2px #515c6c;
+  width: 500px;
+  height: 35px;
+  padding: 10px 18px;
+  border-radius: 8px;
+  font-weight: bold;
+  font-size: 0.95rem;
+  cursor: pointer;
+  transition: background-color 0.2s;
+  margin-left: 100px;
+}
+
+.btn-continer button:hover{
+  background-color: white;
+  color: black;
+  border: black solid 1px;
+}
+
+.general-continer{
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin-left: 100px;
+}
+
+.table-container {
+  width: auto;
+  overflow-x: auto;
+  border: 1px solid #ccc;
+  border-radius: 5px;
+}
+
+
+.vampire-table {
+  min-width: 100%;
+  border-collapse: collapse;
+}
+
+
+.vampire-table thead {
+  text-align: left;
+  border-bottom: 2px solid #535b6c;
+  background-color: #5dc7b9;
+}
+
+.vampire-table thead tr th {
+  padding: 8px 12px;
+  font-weight: 500;
+  color: #111827;
+  white-space: nowrap;
+}
+
+
+.vampire-table tbody {
+  color: #111827;
+}
+
+
+.vampire-table tbody tr {
+  border-bottom: 1px solid #e5e7eb;
+}
+
+
+.vampire-table tbody tr td {
+  padding: 8px 12px;
+  white-space: nowrap;
+}
+
+
+.vampire-table tbody tr td:first-child {
+  font-weight: 500;
+}
+
+
+.vampire-table tbody tr:nth-child(even) {
+  background-color: #a8a7a7;
+}
+
+.btn-delete {
+  background-color: #e63946;
+  color: white;
+  border: none;
+  border-radius: 4px;
+  padding: 6px 12px;
+  font-size: 0.85rem;
+  font-weight: bold;
+  cursor: pointer;
+  transition: background-color 0.2s ease;
+}
+
+.btn-delete:hover {
+  background-color: #b71c1c;
+}
