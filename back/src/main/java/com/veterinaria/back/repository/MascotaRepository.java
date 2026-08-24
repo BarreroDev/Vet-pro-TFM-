@@ -4,6 +4,11 @@ import java.util.List;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
 import com.veterinaria.back.model.Mascota;
+/**
+ * Interfaz de acceso a datos para la entidad Dueno.
+ * @author Roberto Barrero de la Rosa
+ * @version 1.0
+ */
 
 @Repository
 public interface MascotaRepository extends JpaRepository<Mascota, Long> {

@@ -13,6 +13,7 @@ import java.util.Optional;
  * @author Roberto Barrero de la Rosa
  * @version 1.0
  */
+
 @Repository
 public interface DuenoRepository extends JpaRepository<Dueno, Long> {
 
