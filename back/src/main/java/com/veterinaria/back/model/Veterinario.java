@@ -1,5 +1,8 @@
 package com.veterinaria.back.model;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
+import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
@@ -51,7 +54,7 @@ public class Veterinario {
     private String email;
 	
     /**
-     * La contraseña sera escriptada paar el acceso al sistema.
+     * La contraseña estará encriptada.
      * @JsonIgnore evita que se envie la contaseña en las respuestas JSON.
      */
     @Column(nullable = false)
@@ -77,6 +80,7 @@ public class Veterinario {
 
     public Veterinario(String numeroColegiado, String nombre, String apellidos, String telefono, 
                        String email, String password, String rol, String fotoUrl) {
+    	
         this.numeroColegiado = numeroColegiado;
         this.nombre = nombre;
         this.apellidos = apellidos;

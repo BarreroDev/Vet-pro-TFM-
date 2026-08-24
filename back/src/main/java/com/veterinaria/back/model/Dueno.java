@@ -1,9 +1,18 @@
 package com.veterinaria.back.model;
 
 import java.time.LocalDate;
+import java.util.ArrayList;
+import java.util.List;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
+import jakarta.persistence.CascadeType;
+import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
+import jakarta.persistence.GeneratedValue;
+import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
+import jakarta.persistence.OneToMany;
 import jakarta.persistence.Table;
 import lombok.Data;
 
@@ -30,7 +39,7 @@ public class Dueno {
     private Long id;
 
     /**
-	 * Documento nacional de identidad del diueño. Solo puede ser único en el sistema.
+	 * Documento nacional de identidad del dueño. Solo puede ser único en el sistema.
 	 */
 	@Column(nullable = false, unique = true, length = 20)
 	private String dni; 

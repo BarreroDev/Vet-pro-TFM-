@@ -6,6 +6,6 @@ import org.springframework.stereotype.Repository;
 import com.veterinaria.back.model.Dueno;
 
 @Repository
-public interface DuenoRepository extends JpaRepository<Dueno, String> {
+public interface DuenoRepository extends JpaRepository<Dueno, Long> {
 
 }
