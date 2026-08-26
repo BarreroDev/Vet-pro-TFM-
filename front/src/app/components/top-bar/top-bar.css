@@ -4,44 +4,42 @@
   left: 0;
   z-index: 100;
   width: 100%;
-  height: 100px;
-  box-shadow: #515c6c 0 2px 5px;
+  height: 80px;
   display: flex;
   align-items: center;
   justify-content: space-between;
   padding: 0 30px;
-  background: #5dc7b9;
+  background: #62a2be;
 
 }
 .top-bar img {
   width: 150px;
-  height: auto;
-  border-radius: 20px;
+  height: 70px;
+
 }
 
 
 .title h1{
-  color: #515c6c;
+  color: #ffffff;
   font-size: 2.2rem;
   font-style: italic;
   text-align: center;
-
 }
 .top-bar button {
-  box-shadow: #515c6c 2px 2px 2px;
-  border: #515c6c solid 2px;
-  border-radius: 5px;
   width: 120px;
   height: 40px;
-  background: white;
+  background: #62a2be;
   cursor: pointer;
   transition: all 0.2s ease;
+  color: white;
 }
 
 .top-bar button:hover {
-  background: #515c6c;
-  color: white;
+
+  color: #515c6c ;
 }
+
+
 
 
 

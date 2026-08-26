@@ -1,5 +1,5 @@
 .login-container{
-  background-color: rgb(93 198 186);
+  background-color: #62a2be;
   height: 100vh;
   display: flex;
   justify-content: center;
@@ -11,8 +11,8 @@
   height: auto;
   width: 400px;
   background-color: white;
-  box-shadow: 0 4px 8px black;
-  border-radius: 10px;
+  box-shadow: 0 4px 8px #62a2be;
+  border-radius: 5px;
 }
 
 .login-header{
@@ -73,9 +73,8 @@ input:hover{
 }
 
 .btn-login{
-  box-shadow: #515c6c 2px 2px 2px;
   border: #515c6c solid 2px;
-  border-radius: 5px;
+  border-radius: 3px;
   width: 100%;
   margin-top: 20px;
   cursor: pointer;
