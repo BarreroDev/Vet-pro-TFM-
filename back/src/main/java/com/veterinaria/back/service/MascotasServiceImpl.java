@@ -21,12 +21,12 @@ import com.veterinaria.back.repository.MascotaRepository;
  */
 
 @Service
-public class MascotasServicesImpl implements MascotasService {
+public class MascotasServiceImpl implements MascotasService {
 
 	private final MascotaRepository mascotaRepository;
 	private final DuenoRepository duenoRepository;
 	
-	public MascotasServicesImpl(MascotaRepository mascotaRepository, DuenoRepository duenoRepository) {
+	public MascotasServiceImpl(MascotaRepository mascotaRepository, DuenoRepository duenoRepository) {
 		this.mascotaRepository = mascotaRepository;
 		this.duenoRepository = duenoRepository;
 	}
@@ -72,15 +72,35 @@ public class MascotasServicesImpl implements MascotasService {
 		return mascotaRepository.save(mascota);
 	}
 
+	
+	/**
+	 * Método para actualiazar los datos de una mascota.
+	 */
 	@Override
+	@Transactional
 	public Mascota actualizar(Long id, Mascota mascotaActualizada) {
-		// TODO Auto-generated method stub
-		return null;
+	    return mascotaRepository.findById(id)
+	            .map(mascotaExistente -> {
+	                mascotaExistente.setNombre(mascotaActualizada.getNombre());
+	                mascotaExistente.setEspecie(mascotaActualizada.getEspecie());
+	                mascotaExistente.setRaza(mascotaActualizada.getRaza());
+	                mascotaExistente.setEdad(mascotaActualizada.getEdad());
+	                mascotaExistente.setPeso(mascotaActualizada.getPeso());
+	                mascotaExistente.setFotoUrl(mascotaActualizada.getFotoUrl());
+	                return mascotaRepository.save(mascotaExistente);
+	            })
+	            .orElseThrow(() -> new RuntimeException("Mascota no encontrada con ID: " + id));
 	}
 
+	/**
+	 * Método para eliminar una mascota.
+	 */
 	@Override
 	public void eliminarPorId(Long id) {
-		// TODO Auto-generated method stub
+		if(!mascotaRepository.existsById(id)) {
+			throw new RuntimeException("No se puede eliminar. Mascota no encontrada con ID: " + id);
+		}
+		mascotaRepository.deleteById(id);
 
 	}
 
