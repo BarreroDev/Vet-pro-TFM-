@@ -3,43 +3,90 @@ package com.veterinaria.back.service;
 import java.util.List;
 import java.util.Optional;
 
+import org.springframework.transaction.annotation.Transactional;
+
 import com.veterinaria.back.model.Veterinario;
+import com.veterinaria.back.repository.VeterinarioRepository;
 
 public class VeterinarioServiceImpl implements VeterinarioService {
 
+	private final VeterinarioRepository veterinarioRepository;
+	
+	public VeterinarioServiceImpl(VeterinarioRepository veterinarioRepository) {
+		this.veterinarioRepository = veterinarioRepository;
+	}
+	
+	/**
+	 * Método paara listar todos los veterinarios.
+	 */
 	@Override
+	@Transactional(readOnly = true)
 	public List<Veterinario> obtenerTodos() {
-		// TODO Auto-generated method stub
-		return null;
+		
+		return veterinarioRepository.findAll();
 	}
 
+	/**
+	 * Métetodo para filtrar por Id si fuera necesiario.
+	 */
 	@Override
+	@Transactional(readOnly = true)
 	public Optional<Veterinario> obtenerPorId(Long id) {
-		// TODO Auto-generated method stub
-		return Optional.empty();
+		
+		return veterinarioRepository.findById(id);
 	}
 
+	/*
+	 * Método paara filtrar por numero de colegiado.
+	 */
 	@Override
+	@Transactional(readOnly = true)
 	public Optional<Veterinario> obtenerPorNumeroColegiado(String numeroColegiado) {
 		// TODO Auto-generated method stub
-		return Optional.empty();
+		return veterinarioRepository.findByNumeroColegiado(numeroColegiado);
 	}
 
+	/**
+	 * Método para gguardar un veterianario.
+	 * En caso de existir no lo guarda.
+	 */
 	@Override
+	@Transactional
 	public Veterinario guardar(Veterinario veterinario) {
-		// TODO Auto-generated method stub
-		return null;
+		if(veterinarioRepository.existsByNumeroColegiado(veterinario.getNumeroColegiado()))
+			throw new IllegalArgumentException("Ya existe un veterinario registrado con el número de colegiado: " + veterinario.getNumeroColegiado());
+		return veterinarioRepository.save(veterinario);
 	}
 
+	/*
+	 * Método para actualizar los datos de un veterinario.
+	 */
 	@Override
+	@Transactional
 	public Veterinario actualizar(Long id, Veterinario veterinarioActializado) {
-		// TODO Auto-generated method stub
-		return null;
+		return veterinarioRepository.findById(id)
+				.map(vetExistente -> {
+					vetExistente.setNombre(veterinarioActializado.getNombre());
+					vetExistente.setApellidos(veterinarioActializado.getApellidos());
+					vetExistente.setTelefono(veterinarioActializado.getTelefono());
+					vetExistente.setEmail(veterinarioActializado.getEmail());
+					vetExistente.setRol(veterinarioActializado.getRol());
+					vetExistente.setFotoUrl(veterinarioActializado.getFotoUrl());
+					return veterinarioRepository.save(vetExistente);
+				})
+				.orElseThrow(() -> new RuntimeException("Vetererinario no encontrado con ID: " + id));
 	}
 
+	/**
+	 * Método para borrar un veterinario.
+	 */
 	@Override
+	@Transactional
 	public void eliminarPorId(Long id) {
-		// TODO Auto-generated method stub
+		if(!veterinarioRepository.existsById(id)) {
+			throw new RuntimeException("No se puede eliminar. Veterinario no encontrado.")
+		}
+		veterinarioRepository.deleteById(id);
 
 	}
 
