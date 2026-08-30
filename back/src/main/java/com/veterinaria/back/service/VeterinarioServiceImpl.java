@@ -3,11 +3,19 @@ package com.veterinaria.back.service;
 import java.util.List;
 import java.util.Optional;
 
+import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import com.veterinaria.back.model.Veterinario;
 import com.veterinaria.back.repository.VeterinarioRepository;
 
+/**
+ * Implementación de la lógica de negocio para la gestión de veterinarios.
+ * 
+ * @author Roberto Barrero de la Rosa
+ * @version 1.0
+ */
+@Service
 public class VeterinarioServiceImpl implements VeterinarioService {
 
 	private final VeterinarioRepository veterinarioRepository;
@@ -84,7 +92,7 @@ public class VeterinarioServiceImpl implements VeterinarioService {
 	@Transactional
 	public void eliminarPorId(Long id) {
 		if(!veterinarioRepository.existsById(id)) {
-			throw new RuntimeException("No se puede eliminar. Veterinario no encontrado.")
+			throw new RuntimeException("No se puede eliminar. Veterinario no encontrado.");
 		}
 		veterinarioRepository.deleteById(id);
 
