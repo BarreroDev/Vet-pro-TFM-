@@ -44,4 +44,6 @@ public class MascotaController {
 	public ResponseEntity<List<Mascota>> obtenerPorDniDueno(@PathVariable String dni){
 		return ResponseEntity.ok(mascotasService.obtenerPorDniDueno(dni));
 	}
+	
+	
 }
