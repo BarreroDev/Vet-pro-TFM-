@@ -96,7 +96,7 @@ public class DuenoController {
 	}
 	
 	@DeleteMapping("/{id}")
-	public ResponseEntity<Dueno> eliminar(@PathVariable Long id){
+	public ResponseEntity<Void> eliminar(@PathVariable Long id){
 		try {
 			duenosService.eliminiarporId(id);
 			return ResponseEntity.noContent().build();
