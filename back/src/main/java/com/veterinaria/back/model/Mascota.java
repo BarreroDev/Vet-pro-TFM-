@@ -3,6 +3,9 @@ package com.veterinaria.back.model;
 import java.util.ArrayList;
 import java.util.List;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
+
 import jakarta.persistence.CascadeType;
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
@@ -61,6 +64,7 @@ public class Mascota {
 	 */
 	@ManyToOne(fetch = FetchType.LAZY)
 	@JoinColumn(name = "dueno_dni", nullable = false)
+	@JsonIgnore
 	private Dueno dueno;
 
 	/**

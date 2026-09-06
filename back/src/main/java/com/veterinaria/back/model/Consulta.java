@@ -2,6 +2,8 @@ package com.veterinaria.back.model;
 
 import java.time.LocalDateTime;
 
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
+
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.FetchType;
@@ -56,6 +58,7 @@ public class Consulta {
      */
     @ManyToOne(fetch = FetchType.EAGER)
     @JoinColumn(name = "mascota_id", nullable = false)
+    @JsonIgnoreProperties("consultas")
     private Mascota mascota;
 
     /**

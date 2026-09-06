@@ -5,6 +5,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 
 import jakarta.persistence.CascadeType;
 import jakarta.persistence.Column;
@@ -66,7 +67,7 @@ public class Dueno {
 	 * Lista de mascotas que tiene el dueño.
 	 */
 	@OneToMany(mappedBy = "dueno", cascade = CascadeType.ALL, orphanRemoval = true)
-    @JsonIgnore
+	@JsonIgnoreProperties("dueno")
     private List<Mascota> mascotas = new ArrayList<>();
 
 
