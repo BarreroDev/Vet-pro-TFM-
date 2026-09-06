@@ -1,12 +1,18 @@
 package com.veterinaria.back.controller;
 
+import java.time.LocalDateTime;
 import java.util.List;
 
+import org.springframework.format.annotation.DateTimeFormat;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.veterinaria.back.model.Consulta;
@@ -40,4 +46,29 @@ public class ConsultaController {
 				.map(ResponseEntity::ok)
 				.orElse(ResponseEntity.notFound().build());
 	}
+	
+	@GetMapping("/mascota/{mascotaId}")
+	public ResponseEntity<List<Consulta>> obtenerPorMascota(@PathVariable Long mascotaId){
+		return ResponseEntity.ok(consultaService.obtenerPorMascota(mascotaId));
+	}
+	
+	@GetMapping("/rango")
+	public ResponseEntity<List<Consulta>> obtenerPorRangoFecha(
+			@RequestParam @DateTimeFormat(iso = DateTimeFormat.ISO.DATE_TIME) LocalDateTime inicio,
+			@RequestParam @DateTimeFormat(iso = DateTimeFormat.ISO.DATE_TIME) LocalDateTime fin){
+		return ResponseEntity.ok(consultaService.obtenerPorRangoFechas(inicio, fin));
+	}
+	
+	@PostMapping("/mascota/{mascotaId}/veterinario/{veterinarioId}")
+	public ResponseEntity<Consulta> guardar(
+			@RequestBody Consulta consulta,
+			@PathVariable Long mascotaId,
+			@PathVariable Long veterinarioId){
+		return ResponseEntity.status(HttpStatus.CREATED)
+				.body(consultaService.guardar(consulta, mascotaId, veterinarioId));
+	}
+	
+	
+	
+	
 }
