@@ -1,7 +1,8 @@
-import { Component } from '@angular/core';
+import {Component, inject, OnInit } from '@angular/core';
 import {TopBar} from '../../components/top-bar/top-bar';
 import {LeftBar} from '../../components/left-bar/left-bar';
-
+import {MascotaService} from '../../services/MascotaService';
+import {Mascota} from '../../models/mascotaModel';
 import {NewPet} from '../../components/new-pet/new-pet';
 
 @Component({
@@ -14,29 +15,22 @@ import {NewPet} from '../../components/new-pet/new-pet';
   templateUrl: './mascotas.html',
   styleUrl: './mascotas.css',
 })
-export class Mascotas {
+
+
+
+
+export class Mascotas implements OnInit {
+
+  private mascotaService = inject(MascotaService);
 
   isRegistrerOpen: boolean = false;
 
-  listaMascotas: any[] = [
+  listaMascotas: any[] = [];
+  cargando: boolean = true;
 
-    {
-      id:1,
-      nombre: 'Alma',
-      especie: 'perro',
-      raza: 'Labrador retivere',
-      edad: '12 años',
-      peso: '36 kg'
-    },
-    {
-      id:2,
-      nombre: 'Cuco',
-      especie: 'pájaro',
-      raza: 'Guacamayo',
-      edad: '9 años',
-      peso: '4,3 kg'
-    }
-  ];
+  ngOnInit() {
+    this.obtenerMascota();
+  }
 
   openRegistrer() {
     this.isRegistrerOpen = true;
