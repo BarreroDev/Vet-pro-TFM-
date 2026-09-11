@@ -29,27 +29,57 @@ export class Mascotas implements OnInit {
   cargando: boolean = true;
 
   ngOnInit() {
-    this.obtenerMascota();
+    this.obtenerMascotas();
   }
 
-  openRegistrer() {
-    this.isRegistrerOpen = true;
+  obtenerMascotas(): void {
+    this.cargando = true;
+    this.mascotaService.getMascotas().subscribe({
+      next: (data) => {
+        this.listaMascotas = data;
+        this.cargando = false;
+        console.log('Mascotas recibidas desde MySQL:', data);
+      },
+      error: (err) => {
+        console.error('Error al obtener mascotas de la API:', err);
+        this.cargando = false;
+      }
+    })
   }
 
-  closeRegistrer() {
-    this.isRegistrerOpen = false;
+    openRegistrer()
+    {
+      this.isRegistrerOpen = true;
+    }
+
+    closeRegistrer()
+    {
+      this.isRegistrerOpen = false;
+    }
+
+  agregarNuevaMascota(nuevaMascota: Mascota) {
+    this.mascotaService.createMascota(nuevaMascota).subscribe({
+      next: (mascotaCreada) => {
+        
+        this.listaMascotas = [...this.listaMascotas, mascotaCreada];
+        this.closeRegistrer();
+      },
+      error: (err) => console.error('Error al guardar la nueva mascota:', err)
+    });
   }
 
-  agregarNuevaMascota(nuevaMascota:any){
-    this.listaMascotas = [...this.listaMascotas, nuevaMascota];
-    this.closeRegistrer()
-  }
-
-  eliminarMascota(id: string) {
-    const confirmacion = window.confirm('¿Estas segura que lo quieres eliminar?')
+  eliminarMascota(id: number) {
+    const confirmacion = window.confirm('¿Estás seguro de que deseas eliminar esta mascota?');
 
     if (confirmacion) {
-      this.listaMascotas = this.listaMascotas.filter(d => d.id === id);
+      this.mascotaService.deleteMascota(id).subscribe({
+        next: () => {
+
+          this.listaMascotas = this.listaMascotas.filter(m => m.id !== id);
+        },
+        error: (err) => console.error('Error al eliminar la mascota:', err)
+      });
     }
+
   }
 }
