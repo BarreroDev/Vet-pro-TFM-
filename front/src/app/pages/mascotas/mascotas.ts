@@ -60,7 +60,7 @@ export class Mascotas implements OnInit {
   agregarNuevaMascota(nuevaMascota: Mascota) {
     this.mascotaService.createMascota(nuevaMascota).subscribe({
       next: (mascotaCreada) => {
-        
+
         this.listaMascotas = [...this.listaMascotas, mascotaCreada];
         this.closeRegistrer();
       },

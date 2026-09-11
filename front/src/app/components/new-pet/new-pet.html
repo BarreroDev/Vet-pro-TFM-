@@ -5,7 +5,7 @@
     <div class="singup-header">
       <h2>Nueva mascota</h2>
     </div>
-    <form class="singup-form">
+    <form class="singup-form" (ngSubmit)="onGuardar()" )>
 
       <div class="group-singup">
         <label for="Nombre">
@@ -46,11 +46,11 @@
         <input type="text" name="peso" [(ngModel)]="peso" >
       </div>
 
-      <button type="button" class="btn-singup" (click)="onGuardar()">
+      <button type="submit" class="btn-singup" >
         Guardar
       </button>
 
-      <button type="button" class="btn-singup" (close)="onClose()"  >
+      <button type="button" class="btn-singup" (click)="onClose()"  >
         Cancelar
       </button>
     </form>
