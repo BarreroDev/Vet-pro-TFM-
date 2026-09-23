@@ -16,6 +16,7 @@ export class NewPet {
   @Output() close = new EventEmitter<void>();
   @Output() guardarMascota = new EventEmitter<any>();
 
+  dniDueno: string = '';
   nombre: string = '';
   especie: string = '';
   raza: string = '';
@@ -27,11 +28,14 @@ export class NewPet {
     console.log('¡BOTÓN PULSADO CORRECTAMENTE!')
     const datosFormulario = {
 
-      nombre: this.nombre,
-      especie: this.especie,
-      raza: this.raza,
-      edad: this.edad,
-      peso: this.peso
+      dniDueno: this.dniDueno,
+      mascota: {
+        nombre: this.nombre,
+        especie: this.especie,
+        raza: this.raza,
+        edad: this.edad,
+        peso: this.peso
+      }
     }
     this.guardarMascota.emit(datosFormulario);
   }

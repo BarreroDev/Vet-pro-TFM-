@@ -26,7 +26,7 @@ import com.veterinaria.back.service.DuenosService;
  * @version 1.0
  */
 @RestController
-@RequestMapping("/api/duenos")
+@RequestMapping("/duenos")
 @CrossOrigin(origins = "http://localhost:4200")
 public class DuenoController {
 	

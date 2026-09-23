@@ -28,7 +28,7 @@ import com.veterinaria.back.service.ConsultaService;
  * @version 1.0
  */
 @RestController
-@RequestMapping("/api/consultas")
+@RequestMapping("/consultas")
 @CrossOrigin(origins = "http://localhost:4200")
 public class ConsultaController {
 

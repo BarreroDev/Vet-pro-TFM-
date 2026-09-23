@@ -25,7 +25,7 @@ import com.veterinaria.back.service.MascotasService;
  * @version 1.0
  */
 @RestController
-@RequestMapping("/api/mascotas")
+@RequestMapping("/mascotas")
 @CrossOrigin(origins = "http://localhost:4200")
 public class MascotaController {
 

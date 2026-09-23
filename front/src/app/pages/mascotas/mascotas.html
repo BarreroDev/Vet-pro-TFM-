@@ -7,7 +7,7 @@
   </button>
 
   @if (isRegistrerOpen){
-    <app-new-pet (close)="closeRegistrer()" (guardarMascota)="agregarNuevaMascota($event)"></app-new-pet>
+    <app-new-pet (close)="closeRegistrer()" (guardarMascota)="onGuardarMascota($event)"></app-new-pet>
   }
 </div>
 <div class="general-continer">

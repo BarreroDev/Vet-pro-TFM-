@@ -57,14 +57,15 @@ export class Mascotas implements OnInit {
       this.isRegistrerOpen = false;
     }
 
-  agregarNuevaMascota(nuevaMascota: Mascota) {
-    this.mascotaService.createMascota(nuevaMascota).subscribe({
-      next: (mascotaCreada) => {
+  onGuardarMascota(evento: any): void {
+    const { mascota, dniDueno } = evento;
 
-        this.listaMascotas = [...this.listaMascotas, mascotaCreada];
-        this.closeRegistrer();
+    this.mascotaService.createMascota(mascota, dniDueno).subscribe({
+      next: (res) => {
+        console.log('Mascota guardada en BD:', res);
+        // Aquí cierras el modal y recargas la lista
       },
-      error: (err) => console.error('Error al guardar la nueva mascota:', err)
+      error: (err) => console.error('Error al guardar:', err)
     });
   }
 

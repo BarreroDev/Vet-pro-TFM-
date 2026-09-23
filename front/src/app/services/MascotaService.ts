@@ -8,7 +8,7 @@ import { Mascota } from '../models/mascotaModel'; // Ajusta la ruta si la carpet
 })
 export class MascotaService {
   private http = inject(HttpClient);
-  private apiUrl = 'http://localhost:8080/api/mascotas';
+  private apiUrl = 'http://localhost:8080/mascotas';
 
   /**
    * Obtiene la lista completa de mascotas desde Spring Boot
@@ -25,10 +25,17 @@ export class MascotaService {
   }
 
   /**
+   * Obtiene las mascotas de un dueño específico por su DNI
+   */
+  getMascotasByDniDueno(dni: string): Observable<Mascota[]> {
+    return this.http.get<Mascota[]>(`${this.apiUrl}/dueno/dni/${dni}`);
+  }
+
+  /**
    * Registra una nueva mascota en la base de datos
    */
-  createMascota(mascota: Mascota): Observable<Mascota> {
-    return this.http.post<Mascota>(this.apiUrl, mascota);
+  createMascota(mascota: Mascota, dniDueno: string): Observable<Mascota> {
+    return this.http.post<Mascota>(`${this.apiUrl}/dueno/${dniDueno}`, mascota);
   }
 
   /**
