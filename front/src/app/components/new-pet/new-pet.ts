@@ -22,6 +22,7 @@ export class NewPet {
   raza: string = '';
   edad: string = '';
   peso: string = '';
+  fotoUrl: string = '';
 
 
   onGuardar(){
@@ -34,7 +35,8 @@ export class NewPet {
         especie: this.especie,
         raza: this.raza,
         edad: this.edad,
-        peso: this.peso
+        peso: this.peso,
+        fotoUrl: this.fotoUrl,
       }
     }
     this.guardarMascota.emit(datosFormulario);

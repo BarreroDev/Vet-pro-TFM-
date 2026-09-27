@@ -7,8 +7,10 @@
     </div>
     <form class="singup-form" (ngSubmit)="onGuardar()" )>
 
-      <div class="form-group">
-        <label for="dniDueno">DNI del Dueño:</label>
+      <div class="group-singup">
+        <label for="dniDueno">
+          DNI del Dueño:
+        </label>
         <input
           type="text"  [(ngModel)]="dniDueno" name="dniDueno"  placeholder="Ej: 12345678X" />
       </div>
@@ -16,7 +18,7 @@
 
       <div class="group-singup">
         <label for="Nombre">
-          Nombre:
+          Nombre mascota:
         </label>
         <input type="text" name="nombre" [(ngModel)]="nombre" placeholder="Alma">
       </div>
@@ -53,13 +55,23 @@
         <input type="text" name="peso" [(ngModel)]="peso" >
       </div>
 
-      <button type="submit" class="btn-singup" >
-        Guardar
-      </button>
+      <div class="group-singup width">
+        <label for="fotoUrl" >
+          Foto de la mascota:
+        </label>
+        <input type="file"  name="fotoUrl" [(ngModel)]="fotoUrl" >
+      </div>
 
-      <button type="button" class="btn-singup" (click)="onClose()"  >
-        Cancelar
-      </button>
+
+      <div class="group-singup2">
+        <button type="submit" class="btn-singup" >
+          Guardar
+        </button>
+
+        <button type="button" class="btn-singup" (click)="onClose()"  >
+          Cancelar
+        </button>
+      </div>
     </form>
 
   </div>
