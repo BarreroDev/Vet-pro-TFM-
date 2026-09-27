@@ -1,4 +1,4 @@
-import {Component, inject, OnInit } from '@angular/core';
+import {Component, inject, OnInit} from '@angular/core';
 import {TopBar} from '../../components/top-bar/top-bar';
 import {LeftBar} from '../../components/left-bar/left-bar';
 import {MascotaService} from '../../services/MascotaService';
