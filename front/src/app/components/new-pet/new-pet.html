@@ -5,7 +5,7 @@
     <div class="singup-header">
       <h2>Nueva mascota</h2>
     </div>
-    <form class="singup-form" (ngSubmit)="onGuardar()" )>
+    <form class="singup-form" (ngSubmit)="onGuardar()" >
 
       <div class="group-singup">
         <label for="dniDueno">
@@ -59,7 +59,7 @@
         <label for="fotoUrl" >
           Foto de la mascota:
         </label>
-        <input type="file"  name="fotoUrl" [(ngModel)]="fotoUrl" >
+        <input type="file"  name="fotoUrl" accept="image/*" (change)="onFileSelected($event)" >
       </div>
 
 

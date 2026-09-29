@@ -25,6 +25,15 @@ export class NewPet {
   fotoUrl: string = '';
 
 
+  archivoSeleccionado: File | null = null;
+
+  onFileSelected(event: Event): void {
+    const input = event.target as HTMLInputElement;
+    if (input.files && input.files.length > 0) {
+      this.archivoSeleccionado = input.files[0];
+    }
+  }
+
   onGuardar(){
     console.log('¡BOTÓN PULSADO CORRECTAMENTE!')
     const datosFormulario = {
@@ -37,9 +46,12 @@ export class NewPet {
         edad: this.edad,
         peso: this.peso,
         fotoUrl: this.fotoUrl,
-      }
+      },
+      archivoFoto:this.archivoSeleccionado
     }
-    this.guardarMascota.emit(datosFormulario);
+    this.guardarMascota.emit(datosFormulario)
+
+    this.onClose()
   }
 
 

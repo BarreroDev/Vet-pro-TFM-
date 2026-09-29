@@ -49,6 +49,13 @@
         <input type="date" name="fechaNacimeniento" [(ngModel)]="fechaNacimeniento" >
       </div>
 
+      <div class="group-singup width">
+        <label for="fotoUrl" >
+          Foto de la mascota:
+        </label>
+        <input type="file"  name="fotoUrl" accept="image/*" (change)="onFileSelected($event)" >
+      </div>
+
       <button type="button" class="btn-singup" (click)="onGuardar()">
         Guardar
       </button>

@@ -23,6 +23,15 @@ export class NewOwner {
   fechaNacimeniento: string = '';
 
 
+  archivoSeleccionado: File | null = null;
+
+  onFileSelected(event: Event): void {
+    const input = event.target as HTMLInputElement;
+    if (input.files && input.files.length > 0) {
+      this.archivoSeleccionado = input.files[0];
+    }
+  }
+
   onGuardar(){
     console.log('¡BOTÓN PULSADO CORRECTAMENTE!')
     const datosFormulario = {
@@ -34,7 +43,8 @@ export class NewOwner {
       email: this.email,
       fechaNacimeniento: this.fechaNacimeniento
     }
-    this.guardarDueño.emit(datosFormulario);
+    this.guardarDueño.emit(datosFormulario)
+    this.onClose()
   }
 
 
