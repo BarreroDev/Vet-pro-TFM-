@@ -2,18 +2,33 @@ import { Component } from '@angular/core';
 import {TopBar} from '../../components/top-bar/top-bar';
 import {LeftBar} from '../../components/left-bar/left-bar';
 import {NewPet} from '../../components/new-pet/new-pet';
+import {NewVet} from '../../components/new-vet/new-vet';
 
 @Component({
   selector: 'app-veterinarios',
   imports: [
     TopBar,
     LeftBar,
-    NewPet
+    NewPet,
+    NewVet
   ],
   templateUrl: './veterinarios.html',
   styleUrl: './veterinarios.css',
 })
 export class Veterinarios {
+
+
+  isRegistrerOpen: boolean = false;
+
+  openRegistrer()
+  {
+    this.isRegistrerOpen = true;
+  }
+
+  closeRegistrer()
+  {
+    this.isRegistrerOpen = false;
+  }
 
   listaVeterinario: any[] = [
 

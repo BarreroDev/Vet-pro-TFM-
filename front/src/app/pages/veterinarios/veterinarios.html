@@ -1,10 +1,15 @@
 <app-top-bar></app-top-bar>
 <app-left-bar></app-left-bar>
 
-<div class="btn-continer">
+<div class="btn-continer" (click)="openRegistrer()">
   <button type="button">
     + Nueva mascota
   </button>
+
+  @if (isRegistrerOpen){
+    <app-new-vet (close)="closeRegistrer()" ></app-new-vet>
+  }
+
 </div>
 
 <div class="general-continer">
