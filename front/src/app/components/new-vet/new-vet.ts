@@ -20,6 +20,7 @@ export class NewVet {
   telefono: string = '';
   email: string = '';
   fechaNacimeniento: string = '';
+  fotoUrl: String = '';
 
 
   archivoSeleccionado: File | null = null;
@@ -36,13 +37,15 @@ export class NewVet {
     const datosFormulario = {
 
       numeroColegiado: this.numeroColegiado,
-      name: this.nombre,
+      nombre: this.nombre,
       apellidos: this.apellidos,
       telefono: this.telefono,
       email: this.email,
-      fechaNacimeniento: this.fechaNacimeniento
+      fechaNacimeniento: this.fechaNacimeniento,
+      fotoUrl: this.fotoUrl,
     }
     this.guardarVete.emit(datosFormulario)
+
     this.onClose()
   }
 
@@ -50,4 +53,5 @@ export class NewVet {
   onClose(): void{
     this.close.emit();
   }
+
 }

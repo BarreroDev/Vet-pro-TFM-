@@ -54,7 +54,7 @@ export class Veterinarios {
     const confirmacion = window.confirm('¿Estas segura que lo quieres eliminar?')
 
     if (confirmacion) {
-      this.listaVeterinario = this.listaVeterinario.filter(d => d.id === id);
+      this.listaVeterinario = this.listaVeterinario.filter(d => d.id !== id);
     }
   }
 
