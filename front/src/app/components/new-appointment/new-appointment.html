@@ -1,4 +1,3 @@
-
 <div class="backdrop">
   <div class="card-singup">
     <div class="singup-header">
@@ -6,56 +5,90 @@
     </div>
     <form class="singup-form">
 
+      <!-- DNI del dueño -->
       <div class="group-singup">
-        <label for="name">
-          Dueño:
-        </label>
-        <input type="text" name="name" [(ngModel)]="name" placeholder="Paco">
+        <label for="dni">DNI del dueño:</label>
+        <input
+          type="text"
+          name="dni"
+          [(ngModel)]="dni"
+          (input)="onDniChange()"
+          placeholder="12345678A"
+        >
       </div>
 
+      <!-- Nombre del dueño (Auto-rellenado) -->
       <div class="group-singup">
-        <label for="dni">
-          DNI del dueño:
-        </label>
-        <input type="text" name="dni" [(ngModel)]="dni" placeholder="13456785-E">
+        <label for="name">Dueño:</label>
+        <input
+          type="text"
+          name="name"
+          [(ngModel)]="name"
+          placeholder="Se rellena al introducir DNI"
+          readonly
+        >
       </div>
 
+      <!-- Mascota (Desplegable dinámico según el dueño) -->
       <div class="group-singup">
-        <label for="mascota">
-          Mascota:
-        </label>
-        <input type="text" name="mascota" [(ngModel)]="mascota" placeholder="Alma">
+        <label for="mascota">Mascota:</label>
+        <select name="mascota" [(ngModel)]="mascota" [disabled]="mascotasDisponibles.length === 0">
+          <option value="" disabled selected>
+            {{ mascotasDisponibles.length > 0 ? 'Selecciona una mascota' : 'Introduce un DNI válido' }}
+          </option>
+          @for (m of mascotasDisponibles; track m.id) {
+            <option [value]="m.nombre">{{ m.nombre }} ({{ m.especie }})</option>
+          }
+        </select>
       </div>
 
+      <!-- Veterinario (Desplegable de veterinarios activos) -->
       <div class="group-singup">
-        <label for="motivo">
-          Motivo:
-        </label>
-        <input type="text" name="motivo" [(ngModel)]="motivo" placeholder="Vacuna, cura, ...">
+        <label for="veterinario">Veterinario:</label>
+        <select name="veterinario" [(ngModel)]="veterinario">
+          <option value="" disabled selected>Selecciona veterinario</option>
+          @for (v of listaVeterinariosActivos; track v.id) {
+            <option [value]="v.id">{{ v.nombre }} {{ v.apellidos }}</option>
+          }
+        </select>
       </div>
 
+      <!-- Consulta / Sala -->
       <div class="group-singup">
-        <label for="fecha">
-          Fecha:
-        </label>
+        <label for="consulta">Consulta / Sala:</label>
+        <select name="consulta" [(ngModel)]="consulta">
+          <option value="" disabled selected>Selecciona consulta</option>
+          <option value="Consulta 1 - General">Consulta 1 - General</option>
+          <option value="Consulta 2 - Vacunación">Consulta 2 - Vacunación</option>
+          <option value="Consulta 3 - Revisiones">Consulta 3 - Revisiones</option>
+          <option value="Quirófano">Quirófano</option>
+        </select>
+      </div>
+
+      <!-- Motivo -->
+      <div class="group-singup">
+        <label for="motivo">Motivo:</label>
+        <input type="text" name="motivo" [(ngModel)]="motivo" placeholder="Vacuna, revisión, desparasitación...">
+      </div>
+
+      <!-- Fecha -->
+      <div class="group-singup">
+        <label for="fecha">Fecha:</label>
         <input type="date" name="fecha" [(ngModel)]="fecha">
       </div>
 
+      <!-- Hora -->
       <div class="group-singup">
-        <label for="hora">
-          Hora:
-        </label>
-        <input type="time" name="hora" [(ngModel)]="hora" >
+        <label for="hora">Hora:</label>
+        <input type="time" name="hora" [(ngModel)]="hora">
       </div>
 
-      <button type="button" class="btn-singup" (click)="onGuardar()">
-        Guardar
-      </button>
+      <!-- Botones -->
+      <div class="group-singup2">
+        <button type="button" class="btn-singup" (click)="onGuardar()">Guardar</button>
+        <button type="button" class="btn-singup" (click)="onClose()">Cancelar</button>
+      </div>
 
-      <button type="button" class="btn-singup" (click)="onClose()"  >
-        Cancelar
-      </button>
     </form>
-
   </div>
 </div>

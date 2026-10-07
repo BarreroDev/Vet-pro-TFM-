@@ -1,6 +1,5 @@
 import { Component } from '@angular/core';
 import {TopBar} from '../../components/top-bar/top-bar';
-import {LeftBar} from '../../components/left-bar/left-bar';
 import {FullCalendarModule} from '@fullcalendar/angular';
 import {NewAppointment} from '../../components/new-appointment/new-appointment';
 import {NewOwner} from '../../components/new-owner/new-owner';
@@ -9,7 +8,6 @@ import {NewOwner} from '../../components/new-owner/new-owner';
   selector: 'app-duenos',
   imports: [
     TopBar,
-    LeftBar,
     FullCalendarModule,
     NewAppointment,
     NewOwner

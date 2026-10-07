@@ -1,6 +1,5 @@
 import { Component } from '@angular/core';
 import {TopBar} from '../../components/top-bar/top-bar';
-import {LeftBar} from '../../components/left-bar/left-bar';
 import {NewPet} from '../../components/new-pet/new-pet';
 import {NewVet} from '../../components/new-vet/new-vet';
 
@@ -8,7 +7,6 @@ import {NewVet} from '../../components/new-vet/new-vet';
   selector: 'app-veterinarios',
   imports: [
     TopBar,
-    LeftBar,
     NewPet,
     NewVet
   ],

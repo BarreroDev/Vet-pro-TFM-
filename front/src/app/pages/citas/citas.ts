@@ -1,6 +1,5 @@
 import { Component } from '@angular/core';
 import { TopBar } from '../../components/top-bar/top-bar';
-import { LeftBar } from '../../components/left-bar/left-bar';
 import { NewAppointment } from '../../components/new-appointment/new-appointment';
 import { FullCalendarModule } from '@fullcalendar/angular';
 import dayGridPlugin from '@fullcalendar/daygrid';
@@ -12,7 +11,6 @@ import interactionPlugin from '@fullcalendar/interaction';
   standalone: true,
   imports: [
     TopBar,
-    LeftBar,
     NewAppointment,
     FullCalendarModule
   ],

@@ -1,6 +1,5 @@
 import {Component, inject, OnInit} from '@angular/core';
 import {TopBar} from '../../components/top-bar/top-bar';
-import {LeftBar} from '../../components/left-bar/left-bar';
 import {MascotaService} from '../../services/MascotaService';
 import {Mascota} from '../../models/mascotaModel';
 import {NewPet} from '../../components/new-pet/new-pet';
@@ -9,15 +8,11 @@ import {NewPet} from '../../components/new-pet/new-pet';
   selector: 'app-mascotas',
   imports: [
     TopBar,
-    LeftBar,
     NewPet
   ],
   templateUrl: './mascotas.html',
   styleUrl: './mascotas.css',
 })
-
-
-
 
 export class Mascotas implements OnInit {
 
