@@ -19,7 +19,7 @@
   gap: 15px;
 }
 
-/* Botón Hamburguesa */
+
 .btn-hamburger {
   background: transparent;
   border: none;
@@ -51,7 +51,7 @@
   margin: 0;
 }
 
-/* Botón Logout */
+
 .btn-logout {
   width: 120px;
   height: 40px;
@@ -69,14 +69,13 @@
   background: #ffffff;
 }
 
-/* Menú Desplegable */
+
 .dropdown-menu {
   position: absolute;
   top: 80px;
-  left: 30px;
   background-color: #ffffff;
   border: 2px solid #515c6c;
-  border-radius: 8px;
+  border-radius: 2px;
   box-shadow: 0 6px 16px rgba(0, 0, 0, 0.25);
   display: none;
   flex-direction: column;
@@ -108,7 +107,6 @@
   color: #ffffff;
 }
 
-/* Telón invisible para cerrar al hacer clic fuera */
 .backdrop-menu {
   position: fixed;
   top: 0;
@@ -116,7 +114,9 @@
   width: 100vw;
   height: 100vh;
   z-index: 99;
-}.top-bar {
+}
+
+  .top-bar {
    position: fixed;
    top: 0;
    left: 0;
@@ -137,7 +137,6 @@
   gap: 15px;
 }
 
-/* Botón Hamburguesa */
 .btn-hamburger {
   background: transparent;
   border: none;
@@ -169,7 +168,7 @@
   margin: 0;
 }
 
-/* Botón Logout */
+
 .btn-logout {
   width: 120px;
   height: 40px;
@@ -187,7 +186,6 @@
   background: #ffffff;
 }
 
-/* Menú Desplegable */
 .dropdown-menu {
   position: absolute;
   top: 80px;
@@ -226,7 +224,6 @@
   color: #ffffff;
 }
 
-/* Telón invisible para cerrar al hacer clic fuera */
 .backdrop-menu {
   position: fixed;
   top: 0;

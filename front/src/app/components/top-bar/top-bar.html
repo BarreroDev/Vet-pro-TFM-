@@ -1,25 +1,21 @@
 <header class="top-bar">
   <div class="top-bar-left">
-    <!-- Botón Hamburguesa -->
     <button type="button" class="btn-hamburger" (click)="toggleMenu()">
       ☰
     </button>
 
-    <!-- Logo -->
     <img src="/assets/img/logo-fondo-azul.jpg" alt="logo">
   </div>
 
-  <!-- Título dinámico -->
   <div class="title">
     <h1>{{title}}</h1>
   </div>
 
-  <!-- Botón Cerrar Sesión -->
+
   <button type="button" class="btn-logout" (click)="logout()">
     Cerrar sesión
   </button>
 
-  <!-- Menú desplegable flotante de navegación -->
   <nav class="dropdown-menu" [class.show]="isMenuOpen">
     <a routerLink="/citas" (click)="closeMenu()">📅 Citas</a>
     <a routerLink="/duenos" (click)="closeMenu()">👤 Dueños</a>
@@ -28,7 +24,6 @@
   </nav>
 </header>
 
-<!-- Fondo invisible para cerrar el menú haciendo clic fuera -->
 @if (isMenuOpen) {
   <div class="backdrop-menu" (click)="closeMenu()"></div>
 }
