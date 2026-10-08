@@ -1,0 +1,59 @@
+<!-- Tarjeta Reducida -->
+<div class="pet-card">
+  <div class="card-avatar">
+    <img
+      [src]="pet.fotoUrl || '/assets/img/default-avatar.png'"
+      [alt]="pet.nombre"
+    >
+  </div>
+
+  <div class="card-content">
+    <h3 class="pet-name">🐾 {{ pet.nombre }}</h3>
+    <p class="pet-info"><strong>Especie:</strong> {{ pet.especie }}</p>
+    <p class="pet-info" *ngIf="pet.raza"><strong>Raza:</strong> {{ pet.raza }}</p>
+  </div>
+
+  <button type="button" class="btn-more" (click)="openDetail()">
+    Saber más
+  </button>
+</div>
+
+<!-- Pop-up Modal "Saber más" -->
+@if (isDetailOpen) {
+  <div class="backdrop" (click)="closeDetail()">
+    <div class="modal-detail" (click)="$event.stopPropagation()">
+      <button type="button" class="btn-close" (click)="closeDetail()">✕</button>
+
+      <div class="modal-header">
+        <img
+          [src]="pet.fotoUrl || '/assets/img/default-avatar.png'"
+          class="img-large"
+          [alt]="pet.nombre"
+        >
+        <h2>{{ pet.nombre }}</h2>
+        <span class="badge-species">{{ pet.especie }}</span>
+      </div>
+
+      <div class="modal-body">
+        <div class="info-group">
+          <h4>Ficha Clínica</h4>
+          <p><strong>Raza:</strong> {{ pet.raza || 'No especificada' }}</p>
+          <p><strong>Edad:</strong> {{ pet.edad ? pet.edad  : 'No especificada' }}</p>
+          <p><strong>Peso:</strong> {{ pet.peso ? pet.peso  : 'No especificado' }}</p>
+        </div>
+
+        <div class="info-group">
+          <h4>Propietario / Dueño</h4>
+          <p><strong>Nombre:</strong> {{ pet.duenoNombre || 'Sin asignar' }}</p>
+          <p *ngIf="pet.duenoDni"><strong>DNI Dueño:</strong> {{ pet.duenoDni }}</p>
+        </div>
+      </div>
+
+      <div class="modal-footer">
+        <button type="button" class="btn-secondary" (click)="closeDetail()">
+          Cerrar
+        </button>
+      </div>
+    </div>
+  </div>
+}

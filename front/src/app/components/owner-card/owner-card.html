@@ -1,0 +1,67 @@
+<!-- Tarjeta Reducida (Vista Grid) -->
+<div class="owner-card">
+  <div class="card-avatar">
+    <img
+      [src]="owner.fotoUrl || '/assets/img/default-avatar.png'"
+      [alt]="owner.nombre + ' ' + owner.apellidos"
+    >
+  </div>
+
+  <div class="card-content">
+    <h3 class="owner-name">{{ owner.nombre }} {{ owner.apellidos }}</h3>
+    <p class="owner-dni"><strong>DNI:</strong> {{ owner.dni }}</p>
+
+  </div>
+
+  <button type="button" class="btn-more" (click)="openDetail()">
+    Saber más
+  </button>
+</div>
+
+<!-- Pop-up Modal de Detalle Completo -->
+@if (isDetailOpen) {
+  <div class="backdrop" (click)="closeDetail()">
+    <!-- stopPropagation evita que se cierre al hacer clic dentro de la caja -->
+    <div class="modal-detail" (click)="$event.stopPropagation()">
+      <button type="button" class="btn-close" (click)="closeDetail()">✕</button>
+
+      <div class="modal-header">
+        <img
+          [src]="owner.fotoUrl || '/assets/img/default-avatar.png'"
+          class="img-large"
+          [alt]="owner.nombre"
+        >
+        <h2>{{ owner.nombre }} {{ owner.apellidos }}</h2>
+        <span class="badge-dni">DNI: {{ owner.dni }}</span>
+      </div>
+
+      <div class="modal-body">
+        <div class="info-group">
+          <h4>Datos de Contacto</h4>
+          <p><strong>Teléfono:</strong> {{ owner.telefono }}</p>
+          <p><strong>Email:</strong> {{ owner.email }}</p>
+          <p><strong>Dirección:</strong> {{ owner.direccion || 'No especificada' }}</p>
+        </div>
+
+        <div class="info-group">
+          <h4>Mascotas Registradas</h4>
+          @if (owner.mascotas && owner.mascotas.length > 0) {
+            <ul class="pet-list">
+              @for (pet of owner.mascotas; track pet.id) {
+                <li>🐾 <strong>{{ pet.nombre }}</strong> ({{ pet.especie }})</li>
+              }
+            </ul>
+          } @else {
+            <p class="no-pets">Sin mascotas asociadas por el momento.</p>
+          }
+        </div>
+      </div>
+
+      <div class="modal-footer">
+        <button type="button" class="btn-secondary" (click)="closeDetail()">
+          Cerrar
+        </button>
+      </div>
+    </div>
+  </div>
+}

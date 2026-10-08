@@ -15,7 +15,7 @@ export class NewOwner {
   @Output() close = new EventEmitter<void>();
   @Output() guardarDueño = new EventEmitter<any>();
 
-  name: string = '';
+  nombre: string = '';
   dni: string = '';
   apellidos: string = '';
   telefono: string = '';
@@ -37,7 +37,7 @@ export class NewOwner {
     const datosFormulario = {
 
       dni: this.dni,
-      name: this.name,
+      nombre: this.nombre,
       apellidos: this.apellidos,
       telefono: this.telefono,
       email: this.email,

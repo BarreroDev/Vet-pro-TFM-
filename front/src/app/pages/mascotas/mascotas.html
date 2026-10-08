@@ -5,51 +5,18 @@
   <button type="button" (click)="openRegistrer()">
     + Nueva mascota
   </button>
+</div>
 
-  @if (isRegistrerOpen){
-    <app-new-pet (close)="closeRegistrer()" (guardarMascota)="onGuardarMascota($event)"></app-new-pet>
+@if (isRegistrerOpen){
+  <app-new-pet (close)="closeRegistrer()" (guardarMascota)="onGuardarMascota($event)"></app-new-pet>
+}
+
+
+<div class="cards-grid">
+  @for (m of listaMascotas; track m.id) {
+    <app-pet-card [pet]="m"></app-pet-card>
   }
 </div>
-<div class="general-continer">
-  <div class="table-container">
-    <table class="vampire-table">
-      <thead>
-      <tr>
-        <th>ID</th>
-        <th>Nombre</th>
-        <th>Especie</th>
-        <th>Raza</th>
-        <th>Edad</th>
-        <th>Peso</th>
-        <td>Acciones</td>
-      </tr>
-      </thead>
 
-      <tbody>
-        @for (mascota of listaMascotas; track mascota.id){
-          <tr>
-            <td>{{ mascota.id }}</td>
-            <td>{{ mascota.nombre }}</td>
-            <td>{{ mascota.especie}}</td>
-            <td>{{ mascota.raza }}</td>
-            <td>{{ mascota.edad }}</td>
-            <td>{{ mascota.peso }}</td>
-            <td>
-              <button type="button" class="btn-delete" (click)="eliminarMascota(mascota.id)">
-                Eliminar
-              </button>
-            </td>
-          </tr>
-        } @empty {
-          <tr>
-            <td colspan="7" style="text-align: center; padding: 20px">
-              No hay mascotas registrados en el sistema.
-            </td>
-          </tr>
-        }
-      </tbody>
-    </table>
-  </div>
-</div>
 
 
