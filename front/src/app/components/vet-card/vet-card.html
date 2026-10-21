@@ -1,1 +1,59 @@
-<p>vet-card works!</p>
+<!-- Tarjeta Reducida (Grid) -->
+<div class="vet-card">
+  <div class="card-avatar">
+    <img
+      [src]="vet.fotoUrl || '/assets/img/default-avatar.png'"
+      [alt]="vet.nombre + ' ' + vet.apellidos"
+    >
+  </div>
+
+  <div class="card-content">
+    <h3 class="vet-name">Dr(a). {{ vet.nombre }} {{ vet.apellidos }}</h3>
+    <p class="vet-colegiado"><strong>Nº Colegiado:</strong> {{ vet.numeroColegiado }}</p>
+    <p class="vet-phone"><strong>Tel:</strong> {{ vet.telefono }}</p>
+  </div>
+
+  <button type="button" class="btn-more" (click)="openDetail()">
+    Saber más
+  </button>
+</div>
+
+<!-- Pop-up Modal "Saber más" -->
+@if (isDetailOpen) {
+  <div class="backdrop" (click)="closeDetail()">
+    <div class="modal-detail" (click)="$event.stopPropagation()">
+      <button type="button" class="btn-close" (click)="closeDetail()">✕</button>
+
+      <div class="modal-header">
+        <img
+          [src]="vet.fotoUrl || '/assets/img/default-avatar.png'"
+          class="img-large"
+          [alt]="vet.nombre"
+        >
+        <h2>Dr(a). {{ vet.nombre }} {{ vet.apellidos }}</h2>
+        <span class="badge-colegiado">Nº Colegiado: {{ vet.numeroColegiado }}</span>
+      </div>
+
+      <div class="modal-body">
+        <div class="info-group">
+          <h4>Datos Profesionales y Contacto</h4>
+          <p><strong>Teléfono:</strong> {{ vet.telefono }}</p>
+          <p><strong>Email:</strong> {{ vet.email }}</p>
+          <p><strong>Especialidad:</strong> {{ vet.especialidad || 'Medicina General' }}</p>
+          <p>
+            <strong>Estado:</strong>
+            <span [class.active-status]="vet.activo !== false" [class.inactive-status]="vet.activo === false">
+              {{ vet.activo !== false ? 'Activo en plantilla' : 'Baja / Inactivo' }}
+            </span>
+          </p>
+        </div>
+      </div>
+
+      <div class="modal-footer">
+        <button type="button" class="btn-secondary" (click)="closeDetail()">
+          Cerrar
+        </button>
+      </div>
+    </div>
+  </div>
+}

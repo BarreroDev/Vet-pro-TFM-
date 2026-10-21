@@ -1,59 +1,85 @@
-import { Component } from '@angular/core';
-import {TopBar} from '../../components/top-bar/top-bar';
-import {NewPet} from '../../components/new-pet/new-pet';
-import {NewVet} from '../../components/new-vet/new-vet';
+import { Component, OnInit } from '@angular/core';
+import { CommonModule } from '@angular/common';
+import { TopBar } from '../../components/top-bar/top-bar';
+import { NewVet } from '../../components/new-vet/new-vet';
+import { VetCard, Vet } from '../../components/vet-card/vet-card';
 
 @Component({
   selector: 'app-veterinarios',
+  standalone: true,
   imports: [
+    CommonModule,
     TopBar,
-    NewPet,
-    NewVet
+    NewVet,
+    VetCard
   ],
   templateUrl: './veterinarios.html',
   styleUrl: './veterinarios.css',
 })
-export class Veterinarios {
-
+export class Veterinarios implements OnInit {
 
   isRegistrerOpen: boolean = false;
+  cargando: boolean = false;
 
-  openRegistrer()
-  {
+  // Array de datos falsos para probar la vista y las VetCards
+  listaVeterinarios: Vet[] = [];
+
+  ngOnInit(): void {
+    this.cargarDatosPrueba();
+  }
+
+  cargarDatosPrueba(): void {
+    this.listaVeterinarios = [
+      {
+        id: 1,
+        nombre: 'Carlos',
+        apellidos: 'Mendoza Ríos',
+        numeroColegiado: 'COL-4102',
+        telefono: '654987321',
+        email: 'cmendoza@vetpro.com',
+        especialidad: 'Cirugía y Traumatología',
+        activo: true,
+        fotoUrl: ''
+      },
+      {
+        id: 2,
+        nombre: 'Lucía',
+        apellidos: 'Gómez Peralta',
+        numeroColegiado: 'COL-4109',
+        telefono: '612345678',
+        email: 'lgomez@vetpro.com',
+        especialidad: 'Dermatología',
+        activo: true,
+        fotoUrl: ''
+      },
+      {
+        id: 3,
+        nombre: 'Elena',
+        apellidos: 'Sánchez Varo',
+        numeroColegiado: 'COL-3891',
+        telefono: '699887766',
+        email: 'esanchez@vetpro.com',
+        especialidad: 'Medicina General',
+        activo: false,
+        fotoUrl: ''
+      }
+    ];
+  }
+
+  openRegistrer(): void {
     this.isRegistrerOpen = true;
   }
 
-  closeRegistrer()
-  {
+  closeRegistrer(): void {
     this.isRegistrerOpen = false;
   }
 
-  listaVeterinario: any[] = [
-
-    {
-      id: '1',
-      nombre: 'Laura',
-      apellidos: 'García Gómez',
-      telefono: '611223344',
-      email: 'laura.garcia@vetpro.com',
-      numeroColegiado:'VET-102'
-    },
-    {
-      id: '2',
-      nombre: 'Carlos',
-      apellidos: 'Sánchez Ruiz',
-      telefono: '622334455',
-      email: 'carlos.sanchez@vetpro.com',
-      numeroColegiado:'VET-105'
-    }
-  ];
-
-  eliminarVeterinario(id: string) {
-    const confirmacion = window.confirm('¿Estas segura que lo quieres eliminar?')
-
-    if (confirmacion) {
-      this.listaVeterinario = this.listaVeterinario.filter(d => d.id !== id);
-    }
+  // Simulación para añadir a la lista local cuando rellenes el formulario modal
+  onGuardarVeterinario(nuevoVet: any): void {
+    this.listaVeterinarios.push({
+      id: Date.now(),
+      ...nuevoVet
+    });
+    this.closeRegistrer();
   }
-
 }
