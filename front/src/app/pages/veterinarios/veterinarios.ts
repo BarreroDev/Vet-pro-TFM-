@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { CommonModule } from '@angular/common';
+import { FormsModule } from '@angular/forms'; // <-- 1. Importante para ngModel
 import { TopBar } from '../../components/top-bar/top-bar';
 import { NewVet } from '../../components/new-vet/new-vet';
 import { VetCard, Vet } from '../../components/vet-card/vet-card';
@@ -9,6 +10,7 @@ import { VetCard, Vet } from '../../components/vet-card/vet-card';
   standalone: true,
   imports: [
     CommonModule,
+    FormsModule, // <-- 2. Añadido aquí
     TopBar,
     NewVet,
     VetCard
@@ -21,15 +23,17 @@ export class Veterinarios implements OnInit {
   isRegistrerOpen: boolean = false;
   cargando: boolean = false;
 
-  // Array de datos falsos para probar la vista y las VetCards
-  listaVeterinarios: Vet[] = [];
+  // Listas de datos
+  listaVeterinariosOriginal: Vet[] = [];
+  listaVeterinariosFiltrados: Vet[] = [];
+  filtroBusqueda: string = ''; // Texto que escribes en la barra
 
   ngOnInit(): void {
     this.cargarDatosPrueba();
   }
 
   cargarDatosPrueba(): void {
-    this.listaVeterinarios = [
+    this.listaVeterinariosOriginal = [
       {
         id: 1,
         nombre: 'Carlos',
@@ -64,6 +68,25 @@ export class Veterinarios implements OnInit {
         fotoUrl: ''
       }
     ];
+
+    // Al iniciar, mostramos todos los registros
+    this.listaVeterinariosFiltrados = [...this.listaVeterinariosOriginal];
+  }
+
+  // Lógica de filtrado en tiempo real por DNI o Nº Colegiado
+  filtrarVeterinarios(): void {
+    const texto = this.filtroBusqueda.toLowerCase().trim();
+
+    if (!texto) {
+      this.listaVeterinariosFiltrados = [...this.listaVeterinariosOriginal];
+      return;
+    }
+
+    this.listaVeterinariosFiltrados = this.listaVeterinariosOriginal.filter(v => {
+      const dni = (v as any).dni || '';
+      const colegiado = v.numeroColegiado || '';
+      return dni.toLowerCase().includes(texto) || colegiado.toLowerCase().includes(texto);
+    });
   }
 
   openRegistrer(): void {
@@ -74,12 +97,13 @@ export class Veterinarios implements OnInit {
     this.isRegistrerOpen = false;
   }
 
-  // Simulación para añadir a la lista local cuando rellenes el formulario modal
   onGuardarVeterinario(nuevoVet: any): void {
-    this.listaVeterinarios.push({
+    const vetCreado = {
       id: Date.now(),
       ...nuevoVet
-    });
+    };
+    this.listaVeterinariosOriginal.push(vetCreado);
+    this.filtrarVeterinarios(); // Actualiza la vista actual
     this.closeRegistrer();
   }
 }

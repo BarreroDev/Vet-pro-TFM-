@@ -1,27 +1,38 @@
 <app-top-bar></app-top-bar>
 
+<div class="container-view">
+  <!-- Cabecera con Buscador y Botón de Nuevo Veterinario -->
+  <div class="header-actions">
+    <div class="search-box">
+      <input
+        type="text"
+        [(ngModel)]="filtroBusqueda"
+        (input)="filtrarVeterinarios()"
+        placeholder="Buscar por DNI o Nº Colegiado..."
+        class="input-search"
+      >
+    </div>
 
-<div class="btn-continer" >
-  <button type="button" (click)="openRegistrer()">
-    + Nueva Veterinario
-  </button>
-</div>
+    <div class="btn-continer">
+      <button type="button" (click)="openRegistrer()">
+        + Nuevo Veterinario
+      </button>
+    </div>
+  </div>
 
-@if (isRegistrerOpen){
-  <app-new-vet (close)="closeRegistrer()" ></app-new-vet>
-}
-
-<div class="cards-grid">
-  @for (v of listaVeterinarios; track v.id || v.numeroColegiado) {
-    <app-vet-card [vet]="v"></app-vet-card>
-  } @empty {
-    @if (!cargando) {
-      <p class="no-data">No hay veterinarios registrados actualmente.</p>
+  <!-- Rejilla de tarjetas de veterinarios filtradas -->
+  <div class="cards-grid">
+    @for (v of listaVeterinariosFiltrados; track v.id || v.numeroColegiado) {
+      <app-vet-card [vet]="v"></app-vet-card>
+    } @empty {
+      @if (!cargando) {
+        <p class="no-data">No se ha encontrado ningún veterinario con ese criterio.</p>
+      }
     }
-  }
+  </div>
 </div>
 
-
-
-
-
+<!-- Modal de registro independiente -->
+@if (isRegistrerOpen){
+  <app-new-vet (close)="closeRegistrer()" (guardarVeterinario)="onGuardarVeterinario($event)"></app-new-vet>
+}

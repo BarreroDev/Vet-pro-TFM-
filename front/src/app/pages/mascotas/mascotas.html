@@ -1,22 +1,38 @@
 <app-top-bar></app-top-bar>
 
+<div class="container-view">
+  <!-- Cabecera con Buscador y Botón de Nueva Mascota -->
+  <div class="header-actions">
+    <div class="search-box">
+      <input
+        type="text"
+        [(ngModel)]="filtroDniDueno"
+        (input)="filtrarMascotas()"
+        placeholder="Buscar mascota por DNI del dueño..."
+        class="input-search"
+      >
+    </div>
 
-<div class="btn-continer">
-  <button type="button" (click)="openRegistrer()">
-    + Nueva mascota
-  </button>
+    <div class="btn-continer">
+      <button type="button" (click)="openRegistrer()">
+        + Nueva mascota
+      </button>
+    </div>
+  </div>
+
+  <!-- Rejilla de tarjetas de mascotas filtradas -->
+  <div class="cards-grid">
+    @for (m of listaMascotasFiltradas; track m.id) {
+      <app-pet-card [pet]="m"></app-pet-card>
+    } @empty {
+      @if (!cargando) {
+        <p class="no-data">No se ha encontrado ninguna mascota para ese DNI de dueño.</p>
+      }
+    }
+  </div>
 </div>
 
+<!-- Modal de registro -->
 @if (isRegistrerOpen){
   <app-new-pet (close)="closeRegistrer()" (guardarMascota)="onGuardarMascota($event)"></app-new-pet>
 }
-
-
-<div class="cards-grid">
-  @for (m of listaMascotas; track m.id) {
-    <app-pet-card [pet]="m"></app-pet-card>
-  }
-</div>
-
-
-

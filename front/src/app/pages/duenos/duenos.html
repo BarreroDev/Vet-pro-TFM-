@@ -1,19 +1,36 @@
 <app-top-bar></app-top-bar>
 
-<div class="btn-continer">
-  <button type="button" (click)="openRegistrer()" )>
-    + Nuevo dueño
-  </button>
+<div class="container-view">
+  <!-- Barra de búsqueda y Botón de nuevo dueño -->
+  <div class="header-actions">
+    <div class="search-box">
+      <input
+        type="text"
+        [(ngModel)]="filtroDni"
+        (input)="filtrarDuenos()"
+        placeholder="Buscar dueño por DNI..."
+        class="input-search"
+      >
+    </div>
 
-  @if (isRegistrerOpen){
-    <app-new-owner (close)="closeRegistrer()" (guardarDueño)="agregarNuevoDueno($event)"></app-new-owner>
-  }
-</div>
-
-  <div class="cards-grid">
-    @for (d of listaDuenos; track d.dni) {
-      <app-owner-card [owner]="d"></app-owner-card>
-    }
+    <div class="btn-continer">
+      <button type="button" (click)="openRegistrer()">
+        + Nuevo dueño
+      </button>
+    </div>
   </div>
 
+  <!-- Rejilla de tarjetas filtrada -->
+  <div class="cards-grid">
+    @for (d of listaDuenosFiltrados; track d.dni) {
+      <app-owner-card [owner]="d"></app-owner-card>
+    } @empty {
+      <p class="no-data">No se ha encontrado ningún dueño con ese DNI.</p>
+    }
+  </div>
+</div>
 
+<!-- Modal emergente independiente -->
+@if (isRegistrerOpen){
+  <app-new-owner (close)="closeRegistrer()" (guardarDueño)="agregarNuevoDueno($event)"></app-new-owner>
+}

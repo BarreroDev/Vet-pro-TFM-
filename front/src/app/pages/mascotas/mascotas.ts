@@ -1,5 +1,6 @@
 import { Component, inject, OnInit, ChangeDetectorRef } from '@angular/core';
 import { CommonModule } from '@angular/common';
+import { FormsModule } from '@angular/forms'; // <-- 1. Importante para ngModel
 import { TopBar } from '../../components/top-bar/top-bar';
 import { MascotaService } from '../../services/MascotaService';
 import { NewPet } from '../../components/new-pet/new-pet';
@@ -10,6 +11,7 @@ import { PetCard } from '../../components/pet-card/pet-card';
   standalone: true,
   imports: [
     CommonModule,
+    FormsModule, // <-- 2. Añadido aquí
     TopBar,
     NewPet,
     PetCard
@@ -20,10 +22,15 @@ import { PetCard } from '../../components/pet-card/pet-card';
 export class Mascotas implements OnInit {
 
   private mascotaService = inject(MascotaService);
-  private cdr = inject(ChangeDetectorRef); // Inyectamos el detector de cambios
+  private cdr = inject(ChangeDetectorRef);
 
   isRegistrerOpen: boolean = false;
-  listaMascotas: any[] = [];
+
+  // Listas de datos
+  listaMascotasOriginal: any[] = [];
+  listaMascotasFiltradas: any[] = [];
+  filtroDniDueno: string = ''; // Texto que escribes en la barra
+
   cargando: boolean = true;
 
   ngOnInit(): void {
@@ -34,10 +41,10 @@ export class Mascotas implements OnInit {
     this.cargando = true;
     this.mascotaService.getMascotas().subscribe({
       next: (data) => {
-        this.listaMascotas = data;
+        this.listaMascotasOriginal = data;
+        this.filtrarMascotas(); // Inicializa la lista filtrada con los datos de BD
         this.cargando = false;
         console.log('Mascotas recibidas desde MySQL:', data);
-        // Forzamos a Angular a actualizar la vista por si acaso
         this.cdr.detectChanges();
       },
       error: (err) => {
@@ -45,6 +52,22 @@ export class Mascotas implements OnInit {
         this.cargando = false;
         this.cdr.detectChanges();
       }
+    });
+  }
+
+  // Lógica de filtrado en tiempo real por DNI del dueño
+  filtrarMascotas(): void {
+    const texto = this.filtroDniDueno.toLowerCase().trim();
+
+    if (!texto) {
+      this.listaMascotasFiltradas = [...this.listaMascotasOriginal];
+      return;
+    }
+
+    // Nota: Ajusta 'dniDueno' o 'dueño?.dni' según cómo te devuelva el objeto tu backend de Spring Boot
+    this.listaMascotasFiltradas = this.listaMascotasOriginal.filter(m => {
+      const dni = m.dniDueno || m.dueno?.dni || '';
+      return dni.toLowerCase().includes(texto);
     });
   }
 
@@ -62,8 +85,8 @@ export class Mascotas implements OnInit {
     this.mascotaService.createMascota(mascota, dniDueno).subscribe({
       next: (res) => {
         console.log('Mascota guardada en BD:', res);
-        this.closeRegistrer();  // 1. Cerramos el modal
-        this.obtenerMascotas(); // 2. Recargamos la lista desde la base de datos
+        this.closeRegistrer();
+        this.obtenerMascotas(); // Recarga de la BD y actualiza el filtro
       },
       error: (err) => console.error('Error al guardar la mascota:', err)
     });
@@ -75,7 +98,8 @@ export class Mascotas implements OnInit {
     if (confirmacion) {
       this.mascotaService.deleteMascota(id).subscribe({
         next: () => {
-          this.listaMascotas = this.listaMascotas.filter(m => m.id !== id);
+          this.listaMascotasOriginal = this.listaMascotasOriginal.filter(m => m.id !== id);
+          this.filtrarMascotas(); // Refresca la vista filtrada
           this.cdr.detectChanges();
         },
         error: (err) => console.error('Error al eliminar la mascota:', err)
