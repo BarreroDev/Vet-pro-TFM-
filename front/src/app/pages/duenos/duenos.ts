@@ -1,16 +1,17 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, inject, OnInit, ChangeDetectorRef } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { FormsModule } from '@angular/forms'; // <-- 1. Importante para el buscador
+import { FormsModule } from '@angular/forms';
 import { TopBar } from '../../components/top-bar/top-bar';
 import { NewOwner } from '../../components/new-owner/new-owner';
-import { OwnerCard } from '../../components/owner-card/owner-card';
+import { OwnerCard, Owner } from '../../components/owner-card/owner-card';
+import { OwnerService } from '../../services/owner-service'; // <-- Tu servicio
 
 @Component({
   selector: 'app-duenos',
   standalone: true,
   imports: [
     CommonModule,
-    FormsModule, // <-- 2. Añadido aquí
+    FormsModule,
     TopBar,
     NewOwner,
     OwnerCard
@@ -20,42 +21,36 @@ import { OwnerCard } from '../../components/owner-card/owner-card';
 })
 export class Duenos implements OnInit {
 
+  private ownerService = inject(OwnerService);
+  private cdr = inject(ChangeDetectorRef);
+
   isRegistrerOpen: boolean = false;
+  cargando: boolean = true;
 
-  // Listas de datos
-  listaDuenosOriginal: any[] = [
-    {
-      dni: '34546709-E',
-      nombre: 'Pedro',
-      apellidos: 'Perez Fernández',
-      telefono: '655453421',
-      email: 'sanchezpedro@gmail.com',
-      fechaNacimeniento: '1992-08-24'
-    },
-    {
-      dni: '23221144-C',
-      nombre: 'Álvaro',
-      apellidos: 'Román Pérez',
-      telefono: '703344567',
-      email: 'romanalvaro@gmail.com',
-      fechaNacimeniento: '1990-05-30'
-    }
-  ];
-
-  listaDuenosFiltrados: any[] = [];
-  filtroDni: string = ''; // Texto que escribes en la barra
+  // Listas para el filtrado reactivo
+  listaDuenosOriginal: Owner[] = [];
+  listaDuenosFiltrados: Owner[] = [];
+  filtroDni: string = '';
 
   ngOnInit(): void {
-    // Al arrancar, inicializamos la lista filtrada con todos los dueños
-    this.listaDuenosFiltrados = [...this.listaDuenosOriginal];
+    this.obtenerDuenos();
   }
 
-  openRegistrer() {
-    this.isRegistrerOpen = true;
-  }
-
-  closeRegistrer() {
-    this.isRegistrerOpen = false;
+  obtenerDuenos(): void {
+    this.cargando = true;
+    this.ownerService.getOwners().subscribe({
+      next: (data) => {
+        this.listaDuenosOriginal = data;
+        this.filtrarDuenos(); // Aplica el filtro actual sobre los nuevos datos
+        this.cargando = false;
+        this.cdr.detectChanges();
+      },
+      error: (err) => {
+        console.error('Error al obtener los dueños de la base de datos:', err);
+        this.cargando = false;
+        this.cdr.detectChanges();
+      }
+    });
   }
 
   filtrarDuenos(): void {
@@ -66,25 +61,42 @@ export class Duenos implements OnInit {
       return;
     }
 
-    // Filtra en tiempo real comparando el DNI
     this.listaDuenosFiltrados = this.listaDuenosOriginal.filter(d =>
       d.dni.toLowerCase().includes(texto)
     );
   }
 
-  agregarNuevoDueno(nuevoDueno: any): void {
-    this.listaDuenosOriginal.push(nuevoDueno);
-    this.filtrarDuenos(); // Actualiza la vista actual
-    this.closeRegistrer();
+  openRegistrer() {
+    this.isRegistrerOpen = true;
   }
 
-  eliminarDueno(dni: string) {
-    const confirmacion = window.confirm('¿Estas segura que lo quieres eliminar?');
+  closeRegistrer() {
+    this.isRegistrerOpen = false;
+  }
+
+  agregarNuevoDueno(nuevoDueno: Owner): void {
+    this.ownerService.createOwner(nuevoDueno).subscribe({
+      next: (res) => {
+        console.log('Dueño guardado en MySQL:', res);
+        this.closeRegistrer();
+        this.obtenerDuenos(); // Recarga la lista desde el backend
+      },
+      error: (err) => console.error('Error al guardar el dueño:', err)
+    });
+  }
+
+  eliminarDueno(id: number) {
+    const confirmacion = window.confirm('¿Estás seguro de que quieres eliminar este dueño?');
 
     if (confirmacion) {
-      // Corregido !== para que elimine correctamente el elemento
-      this.listaDuenosOriginal = this.listaDuenosOriginal.filter(d => d.dni !== dni);
-      this.filtrarDuenos(); // Actualiza el filtrado tras borrar
+      this.ownerService.deleteOwner(id).subscribe({
+        next: () => {
+          this.listaDuenosOriginal = this.listaDuenosOriginal.filter(d => d.id !== id);
+          this.filtrarDuenos();
+          this.cdr.detectChanges();
+        },
+        error: (err) => console.error('Error al eliminar el dueño:', err)
+      });
     }
   }
 }

@@ -1,16 +1,17 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, inject, OnInit, ChangeDetectorRef } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { FormsModule } from '@angular/forms'; // <-- 1. Importante para ngModel
+import { FormsModule } from '@angular/forms';
 import { TopBar } from '../../components/top-bar/top-bar';
 import { NewVet } from '../../components/new-vet/new-vet';
 import { VetCard, Vet } from '../../components/vet-card/vet-card';
+import { VetService } from '../../services/vet-service'; // <-- Inyectamos tu nuevo servicio
 
 @Component({
   selector: 'app-veterinarios',
   standalone: true,
   imports: [
     CommonModule,
-    FormsModule, // <-- 2. Añadido aquí
+    FormsModule,
     TopBar,
     NewVet,
     VetCard
@@ -20,60 +21,39 @@ import { VetCard, Vet } from '../../components/vet-card/vet-card';
 })
 export class Veterinarios implements OnInit {
 
-  isRegistrerOpen: boolean = false;
-  cargando: boolean = false;
+  private vetService = inject(VetService);
+  private cdr = inject(ChangeDetectorRef);
 
-  // Listas de datos
+  isRegistrerOpen: boolean = false;
+  cargando: boolean = true;
+
+  // Listas de datos para el doble array de filtrado
   listaVeterinariosOriginal: Vet[] = [];
   listaVeterinariosFiltrados: Vet[] = [];
-  filtroBusqueda: string = ''; // Texto que escribes en la barra
+  filtroBusqueda: string = '';
 
   ngOnInit(): void {
-    this.cargarDatosPrueba();
+    this.obtenerVeterinarios();
   }
 
-  cargarDatosPrueba(): void {
-    this.listaVeterinariosOriginal = [
-      {
-        id: 1,
-        nombre: 'Carlos',
-        apellidos: 'Mendoza Ríos',
-        numeroColegiado: 'COL-4102',
-        telefono: '654987321',
-        email: 'cmendoza@vetpro.com',
-        especialidad: 'Cirugía y Traumatología',
-        activo: true,
-        fotoUrl: ''
+  obtenerVeterinarios(): void {
+    this.cargando = true;
+    this.vetService.getVets().subscribe({
+      next: (data) => {
+        this.listaVeterinariosOriginal = data;
+        this.filtrarVeterinarios(); // Actualiza la lista filtrada con los datos reales de MySQL
+        this.cargando = false;
+        console.log('Veterinarios recibidos desde MySQL:', data);
+        this.cdr.detectChanges();
       },
-      {
-        id: 2,
-        nombre: 'Lucía',
-        apellidos: 'Gómez Peralta',
-        numeroColegiado: 'COL-4109',
-        telefono: '612345678',
-        email: 'lgomez@vetpro.com',
-        especialidad: 'Dermatología',
-        activo: true,
-        fotoUrl: ''
-      },
-      {
-        id: 3,
-        nombre: 'Elena',
-        apellidos: 'Sánchez Varo',
-        numeroColegiado: 'COL-3891',
-        telefono: '699887766',
-        email: 'esanchez@vetpro.com',
-        especialidad: 'Medicina General',
-        activo: false,
-        fotoUrl: ''
+      error: (err) => {
+        console.error('Error al obtener veterinarios de la API:', err);
+        this.cargando = false;
+        this.cdr.detectChanges();
       }
-    ];
-
-    // Al iniciar, mostramos todos los registros
-    this.listaVeterinariosFiltrados = [...this.listaVeterinariosOriginal];
+    });
   }
 
-  // Lógica de filtrado en tiempo real por DNI o Nº Colegiado
   filtrarVeterinarios(): void {
     const texto = this.filtroBusqueda.toLowerCase().trim();
 
@@ -83,9 +63,8 @@ export class Veterinarios implements OnInit {
     }
 
     this.listaVeterinariosFiltrados = this.listaVeterinariosOriginal.filter(v => {
-      const dni = (v as any).dni || '';
       const colegiado = v.numeroColegiado || '';
-      return dni.toLowerCase().includes(texto) || colegiado.toLowerCase().includes(texto);
+      return colegiado.toLowerCase().includes(texto);
     });
   }
 
@@ -98,12 +77,28 @@ export class Veterinarios implements OnInit {
   }
 
   onGuardarVeterinario(nuevoVet: any): void {
-    const vetCreado = {
-      id: Date.now(),
-      ...nuevoVet
-    };
-    this.listaVeterinariosOriginal.push(vetCreado);
-    this.filtrarVeterinarios(); // Actualiza la vista actual
-    this.closeRegistrer();
+    this.vetService.createVet(nuevoVet).subscribe({
+      next: (res) => {
+        console.log('Veterinario guardado en MySQL:', res);
+        this.closeRegistrer();
+        this.obtenerVeterinarios(); // Recarga la lista completa desde la BD
+      },
+      error: (err) => console.error('Error al guardar el veterinario:', err)
+    });
+  }
+
+  eliminarVeterinario(id: number): void {
+    const confirmacion = window.confirm('¿Estás seguro de que deseas eliminar este veterinario?');
+
+    if (confirmacion) {
+      this.vetService.deleteVet(id).subscribe({
+        next: () => {
+          this.listaVeterinariosOriginal = this.listaVeterinariosOriginal.filter(v => v.id !== id);
+          this.filtrarVeterinarios();
+          this.cdr.detectChanges();
+        },
+        error: (err) => console.error('Error al eliminar el veterinario:', err)
+      });
+    }
   }
 }

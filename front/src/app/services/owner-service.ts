@@ -11,7 +11,7 @@ export class OwnerService {
   private http = inject(HttpClient);
 
   // URL de tu controlador REST en Spring Boot (ajusta el puerto si es necesario)
-  private apiUrl = 'http://localhost:8080/api/duenos';
+  private apiUrl = 'http://localhost:8080/duenos';
 
   // 1. Obtener todos los dueños desde MySQL
   getOwners(): Observable<Owner[]> {
