@@ -1,10 +1,19 @@
 package com.veterinaria.back.service;
 
+import java.io.File;
+import java.io.IOException;
+import java.nio.file.Files;
+import java.nio.file.Path;
+import java.nio.file.Paths;
+import java.nio.file.StandardCopyOption;
 import java.util.List;
 import java.util.Optional;
 
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
+import org.springframework.web.multipart.MultipartFile;
+
 
 import com.veterinaria.back.model.Veterinario;
 import com.veterinaria.back.repository.VeterinarioRepository;
@@ -97,5 +106,28 @@ public class VeterinarioServiceImpl implements VeterinarioService {
 		veterinarioRepository.deleteById(id);
 
 	}
+	
+	@Value("${spring.file.img:img/}")
+	private String img;
+
+	public Veterinario guardarFoto(Veterinario vet, MultipartFile file) throws IOException {
+	    if (file != null && !file.isEmpty()) {
+	        Path uploadDir = Paths.get(img.trim()).toAbsolutePath().normalize();
+	        Files.createDirectories(uploadDir);
+
+	        String originalName = file.getOriginalFilename() != null
+	                ? Path.of(file.getOriginalFilename()).getFileName().toString()
+	                : "imagen.jpg";
+	        String fileName = System.currentTimeMillis() + "_" + originalName;
+	        Path filePath = uploadDir.resolve(fileName);
+
+	        Files.copy(file.getInputStream(), filePath, StandardCopyOption.REPLACE_EXISTING);
+
+	        vet.setFotoUrl("http://localhost:8080/img/" + fileName);
+	    }
+
+	    return veterinarioRepository.save(vet);
+	}
+	
 
 }

@@ -1,6 +1,9 @@
 import { Component, Input } from '@angular/core';
 import { CommonModule } from '@angular/common';
+import {VeterinarioModel} from '../../models/veterinarioModel';
 
+
+// eliminar cuando tenga datos cargados
 export interface Vet {
   id?: number;
   nombre: string;
@@ -21,7 +24,7 @@ export interface Vet {
   styleUrl: './vet-card.css'
 })
 export class VetCard {
-  @Input({ required: true }) vet!: Vet;
+  @Input({ required: true }) vet!: VeterinarioModel;
 
   isDetailOpen: boolean = false;
 

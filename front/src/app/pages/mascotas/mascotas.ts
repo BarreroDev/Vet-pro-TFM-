@@ -1,10 +1,11 @@
 import { Component, inject, OnInit, ChangeDetectorRef } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { FormsModule } from '@angular/forms'; // <-- 1. Importante para ngModel
+import { FormsModule } from '@angular/forms';
 import { TopBar } from '../../components/top-bar/top-bar';
 import { MascotaService } from '../../services/MascotaService';
 import { NewPet } from '../../components/new-pet/new-pet';
 import { PetCard } from '../../components/pet-card/pet-card';
+import { Mascota} from '../../models/mascotaModel';
 
 @Component({
   selector: 'app-mascotas',
@@ -27,8 +28,8 @@ export class Mascotas implements OnInit {
   isRegistrerOpen: boolean = false;
 
   // Listas de datos
-  listaMascotasOriginal: any[] = [];
-  listaMascotasFiltradas: any[] = [];
+  listaMascotasOriginal: Mascota[] = [];
+  listaMascotasFiltradas: Mascota[] = [];
   filtroDniDueno: string = ''; // Texto que escribes en la barra
 
   cargando: boolean = true;
@@ -79,7 +80,7 @@ export class Mascotas implements OnInit {
     this.isRegistrerOpen = false;
   }
 
-  onGuardarMascota(evento: any): void {
+  onGuardarMascota(evento: {mascota: Mascota, dniDueno: string}): void {
     const { mascota, dniDueno } = evento;
 
     this.mascotaService.createMascota(mascota, dniDueno).subscribe({

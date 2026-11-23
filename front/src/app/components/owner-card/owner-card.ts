@@ -1,6 +1,8 @@
 import { Component, Input } from '@angular/core';
 import { CommonModule } from '@angular/common';
+import {OwnerModel} from '../../models/ownerModel';
 
+// eliminar cuando tenga datos cargados
 export interface Owner {
   id?: number;
   dni: string;
@@ -21,7 +23,7 @@ export interface Owner {
   styleUrl: './owner-card.css'
 })
 export class OwnerCard {
-  @Input({ required: true }) owner!: Owner;
+  @Input({ required: true }) owner!: OwnerModel;
 
 
   isDetailOpen: boolean = false;

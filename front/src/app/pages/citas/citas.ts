@@ -5,6 +5,7 @@ import { FullCalendarModule } from '@fullcalendar/angular';
 import dayGridPlugin from '@fullcalendar/daygrid';
 import timeGridPlugin from '@fullcalendar/timegrid';
 import interactionPlugin from '@fullcalendar/interaction';
+import {citasModel} from '../../models/citasModel';
 
 @Component({
   selector: 'app-citas',
@@ -21,8 +22,8 @@ export class Citas {
 
   isRegistrerOpen: boolean = false;
 
-  citasGuardadas: any[] = [
-    { title: 'Alma - Vacuna', start: '2026-08-12T10:00:00', color: '#0d9488' }
+  citasGuardadas: citasModel[] = [
+
   ];
 
   calendarOptions: any = {
@@ -68,10 +69,14 @@ export class Citas {
     this.openRegistrer();
   }
 
-  agregarNuevaCita(citaDelFormulario: any) {
-    const nuevaCitaEvent = {
+  agregarNuevaCita(citaDelFormulario: { mascota: string; motivo: string; fecha: string; hora: string }): void {
+    const fechaHoraIso = `${citaDelFormulario.fecha}T${citaDelFormulario.hora}:00`;
+
+    const nuevaCitaEvent: citasModel = {
+      fechaHora: fechaHoraIso,
+      motivo: citaDelFormulario.motivo,
       title: `${citaDelFormulario.mascota} - ${citaDelFormulario.motivo}`,
-      start: `${citaDelFormulario.fecha}T${citaDelFormulario.hora}:00`,
+      start: fechaHoraIso,
       color: '#0d9488'
     };
 

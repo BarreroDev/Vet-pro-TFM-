@@ -1,7 +1,7 @@
 import { Injectable, inject } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { Observable } from 'rxjs';
-import { Mascota } from '../models/mascotaModel'; // Ajusta la ruta si la carpeta models está en otro nivel
+import { Mascota } from '../models/mascotaModel';
 
 @Injectable({
   providedIn: 'root'

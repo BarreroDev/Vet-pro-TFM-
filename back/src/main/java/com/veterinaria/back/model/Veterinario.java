@@ -1,6 +1,7 @@
 package com.veterinaria.back.model;
 
-import com.fasterxml.jackson.annotation.JsonIgnore;
+
+import com.fasterxml.jackson.annotation.JsonProperty;
 
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
@@ -55,10 +56,9 @@ public class Veterinario {
 	
     /**
      * La contraseña estará encriptada.
-     * @JsonIgnore evita que se envie la contaseña en las respuestas JSON.
      */
     @Column(nullable = false)
-    @JsonIgnore
+    @JsonProperty(access = JsonProperty.Access.WRITE_ONLY)
     private String password;
 
     /**

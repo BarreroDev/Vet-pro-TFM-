@@ -3,8 +3,9 @@ import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
 import { TopBar } from '../../components/top-bar/top-bar';
 import { NewVet } from '../../components/new-vet/new-vet';
-import { VetCard, Vet } from '../../components/vet-card/vet-card';
-import { VetService } from '../../services/vet-service'; // <-- Inyectamos tu nuevo servicio
+import {VeterinarioModel} from '../../models/veterinarioModel';
+import {VetCard} from '../../components/vet-card/vet-card';
+import { VetService } from '../../services/vet-service';
 
 @Component({
   selector: 'app-veterinarios',
@@ -27,9 +28,9 @@ export class Veterinarios implements OnInit {
   isRegistrerOpen: boolean = false;
   cargando: boolean = true;
 
-  // Listas de datos para el doble array de filtrado
-  listaVeterinariosOriginal: Vet[] = [];
-  listaVeterinariosFiltrados: Vet[] = [];
+
+  listaVeterinariosOriginal: VeterinarioModel[] = [];
+  listaVeterinariosFiltrados: VeterinarioModel[] = [];
   filtroBusqueda: string = '';
 
   ngOnInit(): void {
@@ -39,9 +40,9 @@ export class Veterinarios implements OnInit {
   obtenerVeterinarios(): void {
     this.cargando = true;
     this.vetService.getVets().subscribe({
-      next: (data) => {
+      next: (data: VeterinarioModel[])=> {
         this.listaVeterinariosOriginal = data;
-        this.filtrarVeterinarios(); // Actualiza la lista filtrada con los datos reales de MySQL
+        this.filtrarVeterinarios();
         this.cargando = false;
         console.log('Veterinarios recibidos desde MySQL:', data);
         this.cdr.detectChanges();
@@ -76,14 +77,16 @@ export class Veterinarios implements OnInit {
     this.isRegistrerOpen = false;
   }
 
-  onGuardarVeterinario(nuevoVet: any): void {
-    this.vetService.createVet(nuevoVet).subscribe({
+  crearVeterinario(evento: { vet: VeterinarioModel, file?: File }) {
+    this.vetService.createVet(evento.vet, evento.file).subscribe({
       next: (res) => {
-        console.log('Veterinario guardado en MySQL:', res);
+        console.log('¡Veterinario y foto guardados con éxito!', res);
         this.closeRegistrer();
-        this.obtenerVeterinarios(); // Recarga la lista completa desde la BD
+        this.obtenerVeterinarios();
       },
-      error: (err) => console.error('Error al guardar el veterinario:', err)
+      error: (err) => {
+        console.error('Error al guardar el veterinario:', err);
+      }
     });
   }
 

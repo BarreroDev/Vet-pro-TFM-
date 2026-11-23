@@ -45,9 +45,9 @@
 
         <div class="info-group">
           <h4>Mascotas Registradas</h4>
-          @if (owner.mascotas && owner.mascotas.length > 0) {
+          @if (owner.mascota && owner.mascota.length > 0) {
             <ul class="pet-list">
-              @for (pet of owner.mascotas; track pet.id) {
+              @for (pet of owner.mascota; track pet.id) {
                 <li>🐾 <strong>{{ pet.nombre }}</strong> ({{ pet.especie }})</li>
               }
             </ul>

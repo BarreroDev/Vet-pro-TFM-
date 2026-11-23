@@ -1,3 +1,5 @@
+import{OwnerModel} from './ownerModel';
+
 export interface Mascota {
   id?: number;
   nombre: string;
@@ -6,5 +8,8 @@ export interface Mascota {
   edad?: string;
   peso?: string;
   fotoUrl?: string;
-  dueno?: any;
+  dueno?: OwnerModel;
+  duenoDni?: string;
+  dniDueno?: string;
+  duenoNombre?: string;
 }

@@ -5,13 +5,13 @@
     <div class="singup-header">
       <h2>Nuevo Veterinario</h2>
     </div>
-    <form class="singup-form">
+    <form class="singup-form" (ngSubmit)="onGuardar()">
 
       <div class="group-singup">
         <label for="numeroColegiado">
           Numero de colegiado:
         </label>
-        <input type="text" name="numeroColegiado" [(ngModel)]="numeroColegiado" placeholder="13456785-E">
+        <input type="text" name="numeroColegiado" [(ngModel)]="numeroColegiado" placeholder="COL-23400">
       </div>
 
       <div class="group-singup">
@@ -43,10 +43,28 @@
       </div>
 
       <div class="group-singup">
-        <label for="fechaNacimeniento">
+        <label for="password">
+          Contraseña:
+        </label>
+        <input type="password" name="password" [(ngModel)]="password">
+      </div>
+
+      <div class="group-singup">
+        <label for="fechaNacimiento">
           Fecha nacimiento:
         </label>
-        <input type="date" name="fechaNacimeniento" [(ngModel)]="fechaNacimeniento" >
+        <input type="date" name="fechaNacimiento" [(ngModel)]="fechaNacimiento" >
+      </div>
+
+      <div class="group-singup">
+        <label for="rol ">
+          Rol:
+        </label>
+        <select name="rol" [(ngModel)]="rol">
+          <option value="" disabled selected>Selecciona Rol</option>
+          <option value="VETERINARIO">Veterinario</option>
+          <option value="ADMIN">Admin</option>
+        </select>
       </div>
 
       <div class="group-singup width">

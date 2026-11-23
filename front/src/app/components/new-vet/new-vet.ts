@@ -12,16 +12,16 @@ import {FormsModule, ReactiveFormsModule} from "@angular/forms";
 })
 export class NewVet {
   @Output() close = new EventEmitter<void>();
-  @Output() guardarVete = new EventEmitter<any>();
+  @Output() guardarVete = new EventEmitter<{vet: any, file?: File }>();
 
   numeroColegiado: string = '';
   nombre: string = '';
   apellidos: string = '';
   telefono: string = '';
   email: string = '';
-  fechaNacimeniento: string = '';
-  fotoUrl: String = '';
-
+  fechaNacimiento: string = '';
+  password: string = '';
+  rol: string = '';
 
   archivoSeleccionado: File | null = null;
 
@@ -41,10 +41,14 @@ export class NewVet {
       apellidos: this.apellidos,
       telefono: this.telefono,
       email: this.email,
-      fechaNacimeniento: this.fechaNacimeniento,
-      fotoUrl: this.fotoUrl,
+      fechaNacimiento: this.fechaNacimiento,
+      password: this.password,
+      rol: this.rol
     }
-    this.guardarVete.emit(datosFormulario)
+    this.guardarVete.emit({
+      vet: datosFormulario,
+      file: this.archivoSeleccionado || undefined
+    });
 
     this.onClose()
   }

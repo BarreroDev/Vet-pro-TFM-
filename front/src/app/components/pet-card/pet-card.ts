@@ -1,12 +1,15 @@
 import { Component, Input } from '@angular/core';
 import { CommonModule } from '@angular/common';
+import {Mascota} from '../../models/mascotaModel';
 
+
+// eliminar cuando tenga datos cargados
 export interface Pet {
   id?: number;
   nombre: string;
   especie: string;
   raza?: string;
-  edad?: number;
+  edad?: string;
   peso?: number;
   duenoNombre?: string;
   duenoDni?: string;
@@ -21,7 +24,7 @@ export interface Pet {
   styleUrl: './pet-card.css'
 })
 export class PetCard {
-  @Input({ required: true }) pet!: Pet;
+  @Input({ required: true }) pet!: Mascota;
 
   isDetailOpen: boolean = false;
 

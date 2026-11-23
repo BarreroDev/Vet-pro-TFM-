@@ -1,7 +1,10 @@
 package com.veterinaria.back.service;
 
+import java.io.IOException;
 import java.util.List;
 import java.util.Optional;
+
+import org.springframework.web.multipart.MultipartFile;
 
 import com.veterinaria.back.model.Veterinario;
 
@@ -24,5 +27,7 @@ public interface VeterinarioService {
 	Veterinario actualizar(Long id, Veterinario veterinarioActializado);
 	
 	void eliminarPorId(Long id);
+	
+	Veterinario guardarFoto(Veterinario veterinario, MultipartFile file) throws IOException;
 
 }

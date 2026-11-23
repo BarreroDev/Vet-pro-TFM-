@@ -3,8 +3,9 @@ import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
 import { TopBar } from '../../components/top-bar/top-bar';
 import { NewOwner } from '../../components/new-owner/new-owner';
-import { OwnerCard, Owner } from '../../components/owner-card/owner-card';
-import { OwnerService } from '../../services/owner-service'; // <-- Tu servicio
+import {OwnerCard} from '../../components/owner-card/owner-card';
+import { OwnerService } from '../../services/owner-service';
+import {OwnerModel} from '../../models/ownerModel';
 
 @Component({
   selector: 'app-duenos',
@@ -27,9 +28,9 @@ export class Duenos implements OnInit {
   isRegistrerOpen: boolean = false;
   cargando: boolean = true;
 
-  // Listas para el filtrado reactivo
-  listaDuenosOriginal: Owner[] = [];
-  listaDuenosFiltrados: Owner[] = [];
+
+  listaDuenosOriginal: OwnerModel[] = [];
+  listaDuenosFiltrados: OwnerModel[] = [];
   filtroDni: string = '';
 
   ngOnInit(): void {
@@ -74,9 +75,9 @@ export class Duenos implements OnInit {
     this.isRegistrerOpen = false;
   }
 
-  agregarNuevoDueno(nuevoDueno: Owner): void {
+  agregarNuevoDueno(nuevoDueno: OwnerModel): void {
     this.ownerService.createOwner(nuevoDueno).subscribe({
-      next: (res) => {
+      next: (res: OwnerModel) => {
         console.log('Dueño guardado en MySQL:', res);
         this.closeRegistrer();
         this.obtenerDuenos(); // Recarga la lista desde el backend

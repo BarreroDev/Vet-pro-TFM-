@@ -3,8 +3,10 @@ package com.veterinaria.back.controller;
 import com.veterinaria.back.model.Veterinario;
 import com.veterinaria.back.service.VeterinarioService;
 import org.springframework.http.HttpStatus;
+import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.multipart.MultipartFile;
 
 import java.util.List;
 
@@ -37,9 +39,20 @@ public class VeterinarioController {
                 .orElse(ResponseEntity.notFound().build());
     }
 
-    @PostMapping
-    public ResponseEntity<Veterinario> guardar(@RequestBody Veterinario veterinario) {
-        return ResponseEntity.status(HttpStatus.CREATED).body(veterinarioService.guardar(veterinario));
+    /**
+     * Método POST adaptado para recibir datos del veterinario (JSON) y una foto opcional (Multipart).
+     */
+    @PostMapping(consumes = MediaType.MULTIPART_FORM_DATA_VALUE)
+    public ResponseEntity<Veterinario> guardar(
+            @RequestPart("veterinario") Veterinario veterinario,
+            @RequestPart(value = "file", required = false) MultipartFile file) {
+        try {
+            Veterinario nuevoVet = veterinarioService.guardarFoto(veterinario, file);
+            return ResponseEntity.status(HttpStatus.CREATED).body(nuevoVet);
+        } catch (Exception e) {
+            e.printStackTrace();
+            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).build();
+        }
     }
 
     @PutMapping("/{id}")

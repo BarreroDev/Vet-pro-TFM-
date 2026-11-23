@@ -34,5 +34,5 @@
 
 <!-- Modal de registro independiente -->
 @if (isRegistrerOpen){
-  <app-new-vet (close)="closeRegistrer()" (guardarVeterinario)="onGuardarVeterinario($event)"></app-new-vet>
+  <app-new-vet (close)="closeRegistrer()" (guardarVete)="crearVeterinario($event)")></app-new-vet>
 }
